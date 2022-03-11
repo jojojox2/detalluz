@@ -82,7 +82,9 @@ function parseValues(response: ReeResponse): HourlyPrice[] {
   response?.indicator?.values?.forEach((item: ReeValue) => {
     if (item?.datetime) {
       priceList.push({
-        date: dayjs(item.datetime).format("YYYY-MM-DDTHH:mm:ss.mmmZ"),
+        date: dayjs(item.datetime)
+          .tz("Europe/Madrid")
+          .format("YYYY-MM-DDTHH:mm:ss.mmmZ"),
         value: parseTokWh(item.value),
       });
     }
