@@ -11,6 +11,12 @@ When using credentials for the i-DE electricity distributor, it allows to check 
 This project was generated using [Nx](https://nx.dev), and uses [yarn](https://classic.yarnpkg.com/) as a dependency management.
 
 
+## Website
+
+This application is deployed in [https://detalluz.netlify.app/](https://detalluz.netlify.app/) via [Netlify](https://www.netlify.com/).
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ead61200-03fe-4d5e-849a-1c7aa7e4b7c0/deploy-status)](https://app.netlify.com/sites/detalluz/deploys)
+
 ## Installation
 
 After [installing yarn](https://classic.yarnpkg.com/lang/en/docs/install/) locally, just run `yarn install` in the root folder and all dependencies will be installed.
