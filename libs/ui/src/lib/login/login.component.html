@@ -1,0 +1,75 @@
+<form [formGroup]="loginForm" (submit)="onLogin()">
+  <mat-form-field class="login-input-field" [appearance]="fieldAppearance">
+    <mat-label i18n="@@login.email">E-Mail</mat-label>
+    <input
+      matInput
+      type="email"
+      autocomplete="usename"
+      placeholder="Enter your email"
+      i18n-placeholder="@@login.email.placeholder"
+      formControlName="email"
+    />
+    <mat-error
+      *ngIf="
+      loginForm.get('email').hasError('required')
+      "
+      i18n="@@login.validation-errors.email.required"
+      >Email is required</mat-error
+    >
+    <mat-error
+      *ngIf="loginForm.get('email').hasError('email')"
+      i18n="@@login.validation-errors.email.invalid"
+      >Invalid email</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field class="login-input-field" [appearance]="fieldAppearance">
+    <mat-label i18n="@@login.password">Password</mat-label>
+    <input
+      matInput
+      type="password"
+      autocomplete="current-password"
+      placeholder="Enter your password"
+      i18n-placeholder="@@login.password.placeholder"
+      formControlName="password"
+    />
+    <mat-error
+      *ngIf="
+      loginForm.get('password').hasError('required')
+      "
+      i18n="@@login.validation-errors.password.required"
+      >Password is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-error
+    *ngIf="invalidCredentials"
+    i18n="@@login.validation-errors.invalid-credentials"
+    >Invalid email and/or password</mat-error
+  >
+
+  <mat-checkbox formControlName="rememberMe" i18n="@@login.remember-me">
+    Keep logged in
+  </mat-checkbox>
+
+  <div class="buttons-container">
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="onCancel()"
+      i18n="@@login.cancel-button"
+    >
+      Cancel
+    </button>
+    <span class="button-filler"></span>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      class="login-button"
+      i18n="@@login.login-button"
+    >
+      Login
+    </button>
+  </div>
+</form>

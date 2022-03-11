@@ -1,0 +1,88 @@
+@import "app.theme"
+
+.table-container
+    width: fit-content
+    overflow: auto
+
+.mat-table
+    max-width: 100%
+    cursor: default
+
+.mat-header-cell, .mat-cell
+    padding-left: 5px
+    padding-right: 5px
+
+.condensed
+    tr.mat-header-row
+        height: 1.5em
+
+    tr.mat-row, tr.mat-footer-row
+        height: 1.333em
+        line-height: 1.333em
+    
+.mat-column-date
+    padding-right: 10px
+    white-space: nowrap
+
+.mat-column-hour, .mat-column-sum, .mat-column-mean
+    text-align: center
+    font-size: 12px
+    min-width: 24px
+
+tr.mat-row:last-of-type .mat-cell
+    border-bottom-width: 0px
+
+tr.mat-footer-row .mat-footer-cell
+    border-bottom-width: 0px
+    border-top-width: 4px
+    border-top-style: double
+    border-top-color: mat-color($app-foreground, divider)
+
+
+.mat-column-hour
+    border-left-width: 1px
+    border-left-style: solid
+    border-left-color: mat-color($app-foreground, divider)
+
+th.mat-header-cell:first-of-type, td.mat-footer-cell:first-of-type
+    padding-left: 5px
+
+td.mat-cell:first-of-type
+    padding-left: 0px
+
+th.mat-header-cell:last-of-type, td.mat-footer-cell:last-of-type
+    padding-right: 5px
+
+td.mat-cell:last-of-type
+    padding-right: 0px
+
+.mat-cell.mat-column-hour, .mat-cell.mat-column-sum, .mat-cell.mat-column-mean
+    padding-left: 0px
+    padding-right: 0px
+
+.colored-value
+    display: inline-block
+    padding-left: 5px
+    padding-right: 5px
+    width: calc(100% - 10px)
+
+.mat-cell.mat-column-hour.multi-value
+    display: flex
+    white-space: nowrap
+
+.multi-value .colored-value:not(:first-child)
+    border-left-width: 1px
+    border-left-style: solid
+    border-left-color: mat-color($app-foreground, divider)
+
+tr.mat-footer-row .mat-column-date, tr.mat-footer-row .mat-column-hour
+    font-style: italic
+
+.mat-column-sum, .mat-column-mean
+    border-left-width: 4px
+    border-left-style: double
+    border-left-color: mat-color($app-foreground, divider)
+    font-style: italic
+
+.total-cell
+    font-weight: 600

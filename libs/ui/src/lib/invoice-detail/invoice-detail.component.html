@@ -1,0 +1,64 @@
+<mat-card>
+  <mat-card-title>{{ title }}</mat-card-title>
+  <ng-container *ngIf="range">
+    <mat-card-subtitle i18n="@@invoice-detail.subtitle">
+      From {{ range?.initDate?.format("LL") }} until {{
+      range?.endDate?.format("LL") }} <i>({{ invoiceDays }} days)</i>
+    </mat-card-subtitle>
+
+    <mat-tree
+      [dataSource]="dataSource"
+      [treeControl]="treeControl"
+      class="invoice-tree"
+    >
+      <mat-tree-node
+        *matTreeNodeDef="let node"
+        matTreeNodeToggle
+        [class.total]="node.type === 'total'"
+        [class.subtotal]="node.type === 'subtotal'"
+      >
+        <div class="node-title">{{ node.title }}</div>
+        <div class="node-calculation-detail" *ngIf="node.calculationDetail">
+          {{ node.calculationDetail }}
+        </div>
+        <div class="node-value" *ngIf="node.value">
+          {{ node.value | currency:'EUR':'symbol':'1.2-2' }}
+        </div>
+      </mat-tree-node>
+
+      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+        <div
+          class="mat-tree-node mat-expandable-tree-node"
+          [class.is-expanded]="treeControl.isExpanded(node)"
+          [class.total]="node.type === 'total'"
+          [class.subtotal]="node.type === 'subtotal'"
+        >
+          <button
+            mat-flat-button
+            matTreeNodeToggle
+            [attr.aria-label]="'Toggle ' + node.name"
+          >
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+            <span class="node-title">{{node.title}}</span>
+          </button>
+          <div class="node-calculation-detail" *ngIf="node.calculationDetail">
+            {{ node.calculationDetail }}
+          </div>
+          <div class="node-value" *ngIf="node.value">
+            {{ node.value | currency:'EUR':'symbol':'1.2-2' }}
+          </div>
+        </div>
+        <div
+          [@bodyExpansion]="treeControl.isExpanded(node) ? 'expanded' : 'collapsed'"
+          role="group"
+          class="tree-group"
+          [class.is-expanded]="treeControl.isExpanded(node)"
+        >
+          <ng-container matTreeNodeOutlet></ng-container>
+        </div>
+      </mat-nested-tree-node>
+    </mat-tree>
+  </ng-container>
+</mat-card>

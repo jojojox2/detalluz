@@ -1,0 +1,89 @@
+<ng-container *ngIf="isAuthenticated; else unauthenticatedInvoiceDetail">
+  <dtl-range-selector
+    [(range)]="range"
+    (search)="updateTables()"
+    [autoSearch]="true"
+  ></dtl-range-selector>
+
+  <dtl-invoice-configuration
+    [(data)]="invoiceConfiguration"
+  ></dtl-invoice-configuration>
+
+  <div class="invoice-detail">
+    <mat-tab-group>
+      <mat-tab label="PVPC" i18n-label="@@invoice-simulator.tabs.pvpc">
+        <dtl-pvpc-invoice-detail
+          [range]="range"
+          [invoiceConfiguration]="invoiceConfiguration"
+          [configuration]="configuration"
+          [prices]="prices"
+          [charges]="charges"
+          [consumption]="consumption"
+        ></dtl-pvpc-invoice-detail>
+      </mat-tab>
+      <mat-tab
+        label="Fixed price"
+        i18n-label="@@invoice-simulator.tabs.fixed-price"
+      >
+        <dtl-fixed-price-invoice-detail
+          [range]="range"
+          [invoiceConfiguration]="invoiceConfiguration"
+          [configuration]="configuration"
+          [consumption]="consumption"
+        ></dtl-fixed-price-invoice-detail>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <p i18n="@@invoice-simulator.check-hourly-details">
+    You can also check the hourly detailed consumption and PVPC electricity
+    price:
+  </p>
+
+  <mat-accordion multi>
+    <mat-expansion-panel expanded="false" *ngIf="isAuthenticated">
+      <mat-expansion-panel-header>
+        <mat-panel-title i18n="@@invoice-simulator.panels.consumption">
+          Consumption
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <dtl-datetime-values-table
+        [values]="consumption?.consumption"
+        [unit]="consumption?.unit"
+        totalDisplay="sum"
+        valueFormat="1.0-2"
+        valueTooltipFormat="1.0-5"
+        [footer]="true"
+      ></dtl-datetime-values-table>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel expanded="false">
+      <mat-expansion-panel-header>
+        <mat-panel-title i18n="@@invoice-simulator.panels.prices">
+          Prices
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <dtl-datetime-values-table
+        [values]="prices?.prices"
+        [unit]="prices?.unit"
+        totalDisplay="mean"
+        [footer]="true"
+      ></dtl-datetime-values-table>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
+
+<ng-template #unauthenticatedInvoiceDetail>
+  <mat-card class="login-warning-card">
+    <span i18n="@@invoice-simulator.login-warning">
+      You must
+      <a
+        [routerLink]="loginLink"
+        [relativeTo]="loginLinkRelative"
+        class="login-link"
+        >login</a
+      >
+      in order to get an invoice simulation
+    </span>
+  </mat-card>
+</ng-template>

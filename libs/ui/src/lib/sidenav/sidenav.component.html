@@ -1,0 +1,11 @@
+<ul class="sidenav-list">
+  <li *ngFor="let item of items" class="sidenav-item">
+    <a
+      [routerLink]="item.link"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <span class="sidenav-link">{{ item.text }}</span>
+    </a>
+  </li>
+</ul>

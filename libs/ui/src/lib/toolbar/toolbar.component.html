@@ -1,0 +1,81 @@
+<mat-toolbar color="primary" class="toolbar">
+  <button
+    mat-icon-button
+    *ngIf="!hideMenu"
+    class="toolbar-icon"
+    title="Menu"
+    i18n-title="@@toolbar.menu-icon.aria-label"
+    aria-label="Menu"
+    i18n-aria-label="@@toolbar.menu-icon.aria-label"
+    (click)="toggleMenu()"
+  >
+    <mat-icon>{{ menuOpened ? "menu_open" : "menu" }}</mat-icon>
+  </button>
+  <span>{{ title }}</span>
+
+  <span class="filler"></span>
+
+  <ng-container
+    *ngIf="!hideLanguageSelection && languages && languages.length > 0"
+  >
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="languageMenu"
+      class="toolbar-icon"
+      title="Select language"
+      i18n-title="@@toolbar.language-icon.aria-label"
+      aria-label="Select language"
+      i18n-aria-label="@@toolbar.language-icon.aria-label"
+    >
+      <mat-icon>language</mat-icon>
+    </button>
+    <mat-menu #languageMenu>
+      <ng-container *ngFor="let language of languages">
+        <a
+          [href]="getLanguageUrl(language.code)"
+          mat-menu-item
+          class="language-option"
+        >
+          <span class="language-selected-check">
+            <mat-icon *ngIf="locale === language.code" class="check-icon">
+              check
+            </mat-icon>
+          </span>
+          <span>{{language.label}}</span>
+        </a>
+      </ng-container>
+    </mat-menu>
+  </ng-container>
+
+  <ng-container *ngIf="!hideUserActions">
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="userMenu"
+      class="toolbar-icon"
+      title="User actions"
+      i18n-title="@@toolbar.user-icon.aria-label"
+      aria-label="User actions"
+      i18n-aria-label="@@toolbar.user-icon.aria-label"
+    >
+      <mat-icon>account_box</mat-icon>
+    </button>
+    <mat-menu #userMenu>
+      <button
+        *ngIf="!isAuthenticated"
+        mat-menu-item
+        type="button"
+        (click)="login()"
+      >
+        <span i18n="@@toolbar.login">Login</span>
+      </button>
+      <button
+        *ngIf="isAuthenticated"
+        mat-menu-item
+        type="button"
+        (click)="logout()"
+      >
+        <span i18n="@@toolbar.logout">Logout</span>
+      </button>
+    </mat-menu>
+  </ng-container>
+</mat-toolbar>

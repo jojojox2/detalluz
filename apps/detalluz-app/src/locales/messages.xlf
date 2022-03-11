@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="detalluz-app.title" datatype="html">
+        <source>Detalluz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/app.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="detalluz-app.menu.homepage" datatype="html">
+        <source>Homepage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/app.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="detalluz-app.menu.invoice-simulator" datatype="html">
+        <source>Invoice simulator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/app.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="detalluz-app.menu.info" datatype="html">
+        <source>Info</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/app.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="language.english" datatype="html">
+        <source>English</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/app.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="language.spanish" datatype="html">
+        <source>Español</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/app.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="homepage.welcome-message" datatype="html">
+        <source>Welcome to Detalluz!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/homepage/homepage.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="homepage.summary" datatype="html">
+        <source> In this app you can check the prices of electricity in Spain for the PVPC (regulated rate).
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/homepage/homepage.component.html</context>
+          <context context-type="linenumber">3,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="homepage.registered-usage" datatype="html">
+        <source> If you are registered in the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.i-de.es/&quot; target=&quot;_blank&quot;&gt;"/>i-DE<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> website, you can use the same credentials in this app to get a simulation of your electricity invoice, with the dates that you prefer.
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/homepage/homepage.component.html</context>
+          <context context-type="linenumber">7,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="homepage.invoice-simulator-button" datatype="html">
+        <source> Go to the invoice simulator </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/homepage/homepage.component.html</context>
+          <context context-type="linenumber">20,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="homepage.check-prices" datatype="html">
+        <source> You can also only check and compare PVPC prices of a period:
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/homepage/homepage.component.html</context>
+          <context context-type="linenumber">26,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="homepage.generic-error" datatype="html">
+        <source>Oops! An unexpected error occurred... Please try again later</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/homepage/homepage.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="info.personal-use" datatype="html">
+        <source> This application was designed only for personal use.
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/info/info.component.html</context>
+          <context context-type="linenumber">1,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="info.scope-ide" datatype="html">
+        <source> The scope of it is limited only to already registered users for the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.i-de.es/&quot; target=&quot;_blank&quot;&gt;"/>i-DE<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> company (electrical distributor in Spain), with no relations or vinculations whatsover with this company. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> The credentials used in this application are only to login to these external services, and are <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>not stored<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> in any server, database or similar storage, beyond the session in your own private browser. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> The information retrieved are limited to the hourly consumption as detected by your electricity meter.
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/info/info.component.html</context>
+          <context context-type="linenumber">4,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="info.scope-ree" datatype="html">
+        <source> The hourly pricing used in this application is retrieved online from the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.esios.ree.es/es/pvpc&quot; target=&quot;_blank&quot;
+    &gt;"/>Red Eléctrica de España<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a
+  &gt;"/> website.
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/info/info.component.html</context>
+          <context context-type="linenumber">16,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="info.source-code" datatype="html">
+        <source> The source code for this application can be found in <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://github.com/jojojox2/detalluz&quot; target=&quot;_blank&quot;&gt;"/>GitHub<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/info/info.component.html</context>
+          <context context-type="linenumber">24,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="info.created-by" datatype="html">
+        <source> Created by <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>jojojox2<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/info/info.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-simulator.tabs.pvpc" datatype="html">
+        <source>PVPC</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-simulator.tabs.fixed-price" datatype="html">
+        <source>Fixed price</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-simulator.check-hourly-details" datatype="html">
+        <source> You can also check the hourly detailed consumption and PVPC electricity price: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
+          <context context-type="linenumber">38,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-simulator.panels.consumption" datatype="html">
+        <source> Consumption </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
+          <context context-type="linenumber">46,48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-simulator.panels.prices" datatype="html">
+        <source> Prices </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
+          <context context-type="linenumber">62,64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-simulator.login-warning" datatype="html">
+        <source> You must <x id="START_LINK" ctype="x-a" equiv-text="&lt;a
+        [routerLink]=&quot;loginLink&quot;
+        [relativeTo]=&quot;loginLinkRelative&quot;
+        class=&quot;login-link&quot;
+        &gt;"/>login<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a
+      &gt;"/> in order to get an invoice simulation </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
+          <context context-type="linenumber">78,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-simulator.generic-error" datatype="html">
+        <source>Oops! An unexpected error occurred... Please try again later</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dayjs.cannot-format" datatype="html">
+        <source>Cannot format invalid date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/shared/src/lib/date/dayjs.service.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="datetime-values-table.date-header" datatype="html">
+        <source> Date </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/datetime-values-table/datetime-values-table.component.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="datetime-values-table.mean-footer" datatype="html">
+        <source> Mean </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/datetime-values-table/datetime-values-table.component.html</context>
+          <context context-type="linenumber">25,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="datetime-values-table.sum-footer" datatype="html">
+        <source> Sum </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/datetime-values-table/datetime-values-table.component.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="datetime-values-table.sum-header" datatype="html">
+        <source> Sum </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/datetime-values-table/datetime-values-table.component.html</context>
+          <context context-type="linenumber">112,114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="datetime-values-table.mean-header" datatype="html">
+        <source> Mean </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/datetime-values-table/datetime-values-table.component.html</context>
+          <context context-type="linenumber">144,146</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.peak-hired-power.label" datatype="html">
+        <source>Peak power</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.peak-hired-power.suffix" datatype="html">
+        <source> kW </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">16,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.validation-errors.peak-hired-power.required" datatype="html">
+        <source>Peak power is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.validation-errors.peak-hired-power.min" datatype="html">
+        <source>Value cannot be negative</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.validation-errors.peak-hired-power.max" datatype="html">
+        <source>Power must be below 10 kW</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.link-icon.aria-label" datatype="html">
+        <source>Link power values</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.valley-hired-power.label" datatype="html">
+        <source>Valley power</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.valley-hired-power.suffix" datatype="html">
+        <source> kW </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">72,74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.validation-errors.valley-hired-power.required" datatype="html">
+        <source>Valley power is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.validation-errors.valley-hired-power.min" datatype="html">
+        <source>Value cannot be negative</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-configuration.validation-errors.valley-hired-power.max" datatype="html">
+        <source>Power must be below 10 kW</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.title" datatype="html">
+        <source>Fixed price Invoice simulation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.subtotal" datatype="html">
+        <source>Subtotal</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.meter-rental" datatype="html">
+        <source>Meter rental</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.total-amount" datatype="html">
+        <source>Total amount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.vat" datatype="html">
+        <source>VAT</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.invoice-total-amount" datatype="html">
+        <source>Invoice total amount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.power-costs" datatype="html">
+        <source>Power costs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.hired-power-amount" datatype="html">
+        <source>Amount for hired power</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.energy-costs" datatype="html">
+        <source>Energy costs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.consumed-energy-cost" datatype="html">
+        <source>Consumed energy cost</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
+          <context context-type="linenumber">144</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fixed-price-invoice-detail.community-electricity-tax" datatype="html">
+        <source>Minimum community electricity tax</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-detail.subtitle" datatype="html">
+        <source> From <x id="INTERPOLATION" equiv-text="{{ range?.initDate?.format(&quot;LL&quot;) }}"/> until <x id="INTERPOLATION_1" equiv-text="{{
+      range?.endDate?.format(&quot;LL&quot;) }}"/> <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>(<x id="INTERPOLATION_2" equiv-text="{{ invoiceDays }}"/> days)<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-detail.title" datatype="html">
+        <source>Invoice detail</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-detail.power-period.p1-peak" datatype="html">
+        <source>P1 (peak)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.service.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-detail.power-period.p2-valley" datatype="html">
+        <source>P2 (valley)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.service.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-detail.energy-period.p1-peak" datatype="html">
+        <source>P1 (peak)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.service.ts</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-detail.energy-period.p2-flat" datatype="html">
+        <source>P2 (flat)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.service.ts</context>
+          <context context-type="linenumber">222</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-detail.energy-period.p3-valley" datatype="html">
+        <source>P3 (valley)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.service.ts</context>
+          <context context-type="linenumber">232</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-detail.day" datatype="html">
+        <source>day</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.service.ts</context>
+          <context context-type="linenumber">372</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.service.ts</context>
+          <context context-type="linenumber">522</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.service.ts</context>
+          <context context-type="linenumber">541</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice-detail.days" datatype="html">
+        <source>days</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.service.ts</context>
+          <context context-type="linenumber">376</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.service.ts</context>
+          <context context-type="linenumber">519</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.title" datatype="html">
+        <source>PVPC Invoice simulation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.electricity-tax" datatype="html">
+        <source>Electricity tax</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.subtotal" datatype="html">
+        <source>Subtotal</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.meter-rental" datatype="html">
+        <source>Meter rental</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.total-amount" datatype="html">
+        <source>Total amount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.vat" datatype="html">
+        <source>VAT</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.invoice-total-amount" datatype="html">
+        <source>Invoice total amount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.power-costs" datatype="html">
+        <source>Power costs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">128</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.power-distribution-tolls" datatype="html">
+        <source>Distribution tolls</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.power-charges" datatype="html">
+        <source>Power charges</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">143</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.marketing-margin" datatype="html">
+        <source>Marketing margin</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.energy-costs" datatype="html">
+        <source>Energy costs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">169</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.energy-tolls" datatype="html">
+        <source>Transport tolls and energy distribution</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">183</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.energy-charges" datatype="html">
+        <source>Energy charges</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">191</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pvpc-invoice-detail.consumed-energy-cost" datatype="html">
+        <source>Consumed energy cost</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
+          <context context-type="linenumber">197</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.title" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ title }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.dialog.title" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login-dialog.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.email" datatype="html">
+        <source>E-Mail</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.email.placeholder" datatype="html">
+        <source>Enter your email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.validation-errors.email.required" datatype="html">
+        <source>Email is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.validation-errors.email.invalid" datatype="html">
+        <source>Invalid email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.password" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.password.placeholder" datatype="html">
+        <source>Enter your password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.validation-errors.password.required" datatype="html">
+        <source>Password is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.validation-errors.invalid-credentials" datatype="html">
+        <source>Invalid email and/or password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.remember-me" datatype="html">
+        <source> Keep logged in </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">51,53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.cancel-button" datatype="html">
+        <source> Cancel </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">61,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.login-button" datatype="html">
+        <source> Login </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">71,73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="range-selector.label" datatype="html">
+        <source>Enter a date range</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/range-selector/range-selector.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="range-selector.start-date" datatype="html">
+        <source>Start date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/range-selector/range-selector.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="range-selector.end-date" datatype="html">
+        <source>End date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/range-selector/range-selector.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="range-selector.validation-errors.start-date.required" datatype="html">
+        <source>Start date is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/range-selector/range-selector.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="range-selector.validation-errors.start-date.invalid" datatype="html">
+        <source>Invalid start date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/range-selector/range-selector.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="range-selector.validation-errors.end-date.required" datatype="html">
+        <source>End date is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/range-selector/range-selector.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="range-selector.validation-errors.end-date.invalid" datatype="html">
+        <source>Invalid end date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/range-selector/range-selector.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="range-selector.validation-errors.invalid-range" datatype="html">
+        <source>Invalid range</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/range-selector/range-selector.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="range-selector.search-button" datatype="html">
+        <source> Search
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/range-selector/range-selector.component.html</context>
+          <context context-type="linenumber">73,75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toolbar.menu-icon.aria-label" datatype="html">
+        <source>Menu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toolbar.language-icon.aria-label" datatype="html">
+        <source>Select language</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toolbar.user-icon.aria-label" datatype="html">
+        <source>User actions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toolbar.login" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toolbar.logout" datatype="html">
+        <source>Logout</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

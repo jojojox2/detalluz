@@ -1,0 +1,99 @@
+@import "app.theme"
+    
+::ng-deep .notice-panel
+    position: fixed !important
+    right: 0px
+    bottom: 0px
+    margin: 15px
+
+    .mat-dialog-container
+        background-color: mat-color($app-accent)
+        padding: 0px
+        box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2)
+        width: 250px
+
+    .message-content
+        min-height: 50px
+        max-height: 200px
+
+
+    .mat-progress-bar-buffer
+        background-color: mat-color($app-accent, lighter)
+    
+    .mat-progress-bar-fill::after
+        background-color: mat-color($app-accent, darker)
+    
+::ng-deep .notice-panel.error
+    .mat-dialog-container
+        background-color: mat-color($app-error)
+    
+    .mat-progress-bar-buffer
+        background-color: mat-color($app-error, lighter)
+    
+    .mat-progress-bar-fill::after
+        background-color: mat-color($app-error, darker)
+    
+::ng-deep .notice-panel.warning
+    .mat-dialog-container
+        background-color: mat-color($app-warn)
+    
+    .mat-progress-bar-buffer
+        background-color: mat-color($app-warn, lighter)
+    
+    .mat-progress-bar-fill::after
+        background-color: mat-color($app-warn, darker)
+
+::ng-deep .notice-panel.success
+    .mat-dialog-container
+        background-color: mat-color($app-success)
+    
+    .mat-progress-bar-buffer
+        background-color: mat-color($app-success, lighter)
+    
+    .mat-progress-bar-fill::after
+        background-color: mat-color($app-success, darker)
+
+
+.mat-dialog-content
+    padding: 12px
+    margin: 0px
+    font-size: smaller
+    overflow: hidden
+
+::ng-deep .notice-panel .mat-progress-bar .mat-progress-bar-fill
+    transition: none
+    transform: scaleX(1)
+    animation: progress-animation 5s linear
+
+::ng-deep .notice-panel .mat-progress-bar.paused .mat-progress-bar-fill
+    animation-play-state: paused
+
+@keyframes progress-animation
+    0%
+        transform: scaleX(1)
+    100%
+        transform: scaleX(0)
+
+.close-button
+    position: absolute
+    top: 4px
+    right: 8px
+    padding: 0px
+    cursor: pointer
+    width: 16px
+    height: 16px
+    line-height: 16px
+
+    .close-icon
+        width: 16px
+        height: 16px
+        font-size: 16px
+        line-height: 16px
+        vertical-align: text-top
+
+.close-button:hover
+    background-color: mat-color($app-surface, 200, 0.5)
+
+.close-button.hidden
+    opacity: 0
+

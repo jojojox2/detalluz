@@ -1,0 +1,51 @@
+@import "app.theme"
+
+.invoice-tree ul, .invoice-tree li 
+  margin-top: 0px
+  margin-bottom: 0px
+  list-style-type: none
+
+.mat-tree-node:not(.mat-expandable-tree-node)
+  padding-left: 20px
+
+.mat-tree-node
+  border-bottom-color: mat-color($app-foreground, divider, 0.1)
+  border-bottom-style: solid
+  border-bottom-width: 1px
+
+.invoice-tree .mat-nested-tree-node .tree-group
+  padding-left: 20px
+  overflow: hidden
+
+.invoice-tree .mat-nested-tree-node .tree-group.is-expanded
+  padding-bottom: 20px
+
+.invoice-tree .tree-group > .mat-tree-node 
+  padding-left: 40px
+
+.node-title
+  padding-right: 10px
+
+.node-calculation-detail
+  padding-left: 10px
+  padding-right: 10px
+  color: mat-color($app-foreground, secondary-text)
+  font-style: italic
+
+.node-value
+  flex: 1
+  text-align: right
+  padding-left: 10px
+  padding-right: 40px
+
+.mat-expandable-tree-node.is-expanded > .node-value
+  color: mat-color($app-foreground, secondary-text)
+  font-style: italic
+
+.mat-tree-node.total
+  font-weight: 900
+  background-color: mat-color($app-surface)
+
+.mat-tree-node.subtotal
+  font-weight: 600
+  margin-bottom: 20px

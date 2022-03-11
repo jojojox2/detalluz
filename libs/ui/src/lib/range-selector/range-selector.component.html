@@ -1,0 +1,75 @@
+<mat-form-field [appearance]="fieldAppearance">
+  <mat-label i18n="@@range-selector.label">Enter a date range</mat-label>
+  <mat-date-range-input
+    [formGroup]="rangeForm"
+    [rangePicker]="rangepicker"
+    [disabled]="disabled"
+  >
+    <input
+      matStartDate
+      formControlName="initDate"
+      placeholder="Start date"
+      i18n-placeholder="@@range-selector.start-date"
+    />
+    <input
+      matEndDate
+      formControlName="endDate"
+      placeholder="End date"
+      i18n-placeholder="@@range-selector.end-date"
+    />
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="rangepicker"></mat-datepicker-toggle>
+  <mat-date-range-picker #rangepicker></mat-date-range-picker>
+
+  <mat-error
+    *ngIf="
+      rangeForm.get('initDate').hasError('required') &&
+      !rangeForm.get('initDate').hasError('matDatepickerParse')
+    "
+    i18n="@@range-selector.validation-errors.start-date.required"
+    >Start date is required</mat-error
+  >
+  <mat-error
+    *ngIf="rangeForm.get('initDate').hasError('matDatepickerParse')"
+    i18n="@@range-selector.validation-errors.start-date.invalid"
+    >Invalid start date</mat-error
+  >
+  <mat-error
+    *ngIf="
+      rangeForm.get('endDate').hasError('required') &&
+      !rangeForm.get('endDate').hasError('matDatepickerParse')
+    "
+    i18n="@@range-selector.validation-errors.end-date.required"
+    >End date is required</mat-error
+  >
+  <mat-error
+    *ngIf="rangeForm.get('endDate').hasError('matDatepickerParse')"
+    i18n="@@range-selector.validation-errors.end-date.invalid"
+    >Invalid end date</mat-error
+  >
+  <mat-error
+    *ngIf="
+      !rangeForm.get('initDate').hasError('required') &&
+      !rangeForm.get('initDate').hasError('matDatepickerParse') &&
+      !rangeForm.get('endDate').hasError('required') &&
+      !rangeForm.get('endDate').hasError('matDatepickerParse') &&
+      (rangeForm.get('initDate').hasError('matStartDateInvalid') ||
+        rangeForm.get('endDate').hasError('matEndDateInvalid'))
+    "
+    i18n="@@range-selector.validation-errors.invalid-range"
+    >Invalid range</mat-error
+  >
+</mat-form-field>
+
+<button
+  *ngIf="!autoSearch"
+  mat-raised-button
+  type="button"
+  color="accent"
+  class="search-button"
+  (click)="doSearch()"
+  [disabled]="rangeForm.invalid"
+  i18n="@@range-selector.search-button"
+>
+  Search
+</button>

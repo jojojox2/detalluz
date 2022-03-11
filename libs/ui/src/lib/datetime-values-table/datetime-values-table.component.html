@@ -1,0 +1,177 @@
+<mat-card class="table-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="condensed">
+    <ng-container matColumnDef="date">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        i18n="@@datetime-values-table.date-header"
+      >
+        Date
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [matTooltip]="(element.date | date: longDateFormat) || ''"
+        matTooltipShowDelay="500"
+      >
+        {{ element.date | date: dateFormat }}
+      </td>
+
+      <ng-container *ngIf="totalDisplay === 'mean'">
+        <td
+          mat-footer-cell
+          *matFooterCellDef
+          i18n="@@datetime-values-table.mean-footer"
+        >
+          Mean
+        </td>
+      </ng-container>
+      <ng-container *ngIf="totalDisplay === 'sum'">
+        <td
+          mat-footer-cell
+          *matFooterCellDef
+          i18n="@@datetime-values-table.sum-footer"
+        >
+          Sum
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngFor="let hour of hourColumns; let i = index">
+      <ng-container matColumnDef="{{ hour }}">
+        <th mat-header-cell class="mat-column-hour" *matHeaderCellDef>
+          {{ hour }}
+        </th>
+        <td
+          mat-cell
+          class="mat-column-hour"
+          [class.multi-value]="element.values[i]?.length"
+          *matCellDef="let element"
+        >
+          <ng-container *ngIf="element.values[i]?.length">
+            <span
+              class="colored-value"
+              *ngFor="let hourlyValue of element.values[i]"
+              [style.background-color]="getHsl(hourlyValue.value)"
+              [dtlTableValueTooltip]="hourlyValue.value"
+              [dtlTableValueTooltipUnit]="unit"
+              [dtlTableValueTooltipFormat]="valueTooltipFormat"
+            >
+              {{ hourlyValue.value | number: valueFormat }}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="element.values[i] && !element.values[i]?.length">
+            <span
+              class="colored-value"
+              [style.background-color]="
+                getHsl(element.values[i].value, 'values')
+              "
+              [dtlTableValueTooltip]="element.values[i].value"
+              [dtlTableValueTooltipUnit]="unit"
+              [dtlTableValueTooltipFormat]="valueTooltipFormat"
+            >
+              {{ element.values[i].value | number: valueFormat }}
+            </span>
+          </ng-container>
+        </td>
+
+        <ng-container *ngIf="totalDisplay === 'mean'">
+          <td mat-footer-cell *matFooterCellDef class="mat-column-hour">
+            <span
+              class="colored-value"
+              [style.background-color]="getHsl(total.mean[i], 'meanRow')"
+              [dtlTableValueTooltip]="total.mean[i]"
+              [dtlTableValueTooltipUnit]="unit"
+              [dtlTableValueTooltipFormat]="valueTooltipFormat"
+            >
+              {{ total.mean[i] | number: valueFormat }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container *ngIf="totalDisplay === 'sum'">
+          <td mat-footer-cell *matFooterCellDef class="mat-column-hour">
+            <span
+              class="colored-value"
+              [style.background-color]="getHsl(total.sum[i], 'sumRow')"
+              [dtlTableValueTooltip]="total.sum[i]"
+              [dtlTableValueTooltipUnit]="unit"
+              [dtlTableValueTooltipFormat]="valueTooltipFormat"
+            >
+              {{ total.sum[i] | number: valueFormat }}
+            </span>
+          </td>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <ng-container matColumnDef="sum">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        i18n="@@datetime-values-table.sum-header"
+      >
+        Sum
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        <span
+          class="colored-value"
+          [style.background-color]="getHsl(element.sum, 'sumColumn')"
+          [dtlTableValueTooltip]="element.sum"
+          [dtlTableValueTooltipUnit]="unit"
+          [dtlTableValueTooltipFormat]="valueTooltipFormat"
+        >
+          {{ element.sum | number: valueFormat }}
+        </span>
+      </td>
+
+      <td mat-footer-cell *matFooterCellDef class="total-cell">
+        <span
+          [dtlTableValueTooltip]="total.totalSum"
+          [dtlTableValueTooltipUnit]="unit"
+          [dtlTableValueTooltipFormat]="valueTooltipFormat"
+        >
+          {{ total.totalSum | number: valueFormat }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mean">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        i18n="@@datetime-values-table.mean-header"
+      >
+        Mean
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        <span
+          class="colored-value"
+          [style.background-color]="getHsl(element.mean, 'meanColumn')"
+          [dtlTableValueTooltip]="element.mean"
+          [dtlTableValueTooltipUnit]="unit"
+          [dtlTableValueTooltipFormat]="valueTooltipFormat"
+        >
+          {{ element.mean | number: valueFormat }}
+        </span>
+      </td>
+
+      <td mat-footer-cell *matFooterCellDef class="total-cell">
+        <span
+          [dtlTableValueTooltip]="total.totalMean"
+          [dtlTableValueTooltipUnit]="unit"
+          [dtlTableValueTooltipFormat]="valueTooltipFormat"
+        >
+          {{ total.totalMean | number: valueFormat }}
+        </span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <ng-container *ngIf="footer && totalDisplay !== 'none'">
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </ng-container>
+  </table>
+</mat-card>

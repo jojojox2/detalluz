@@ -1,0 +1,25 @@
+@import "app.theme"
+
+.toolbar
+    height: 48px
+    cursor: default
+
+.toolbar-icon
+    color: mat-color($app-primary, default-contrast, 0.5)
+    transition: 0.25s
+
+.toolbar-icon:hover
+    color: mat-color($app-accent, darker)
+
+.filler
+    flex: auto
+
+.language-option
+    text-decoration: none
+
+    .language-selected-check
+        width: 28px
+        display: inline-block
+
+        .check-icon
+            margin-right: 0px

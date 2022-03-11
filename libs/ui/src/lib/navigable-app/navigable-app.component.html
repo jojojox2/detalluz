@@ -1,0 +1,22 @@
+<dtl-toolbar
+  *ngIf="showMenus()"
+  [title]="title"
+  [(menuOpened)]="sidenavOpened"
+  [languages]="languages"
+  [hideLanguageSelection]="!languages || !languages.length"
+  [loginLink]="loginLink"
+></dtl-toolbar>
+
+<mat-sidenav-container autosize class="main-container">
+  <mat-sidenav
+    [(opened)]="showMenus() && sidenavOpened"
+    class="sidenav"
+    mode="side"
+  >
+    <dtl-sidenav [items]="menuItems"></dtl-sidenav>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="page-container">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

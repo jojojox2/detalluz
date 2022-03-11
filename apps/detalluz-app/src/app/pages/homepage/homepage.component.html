@@ -1,0 +1,43 @@
+<h1 i18n="@@homepage.welcome-message">Welcome to Detalluz!</h1>
+
+<p i18n="@@homepage.summary">
+  In this app you can check the prices of electricity in Spain for the PVPC
+  (regulated rate).
+</p>
+<p i18n="@@homepage.registered-usage">
+  If you are registered in the
+  <a href="https://www.i-de.es/" target="_blank">i-DE</a> website, you can use
+  the same credentials in this app to get a simulation of your electricity
+  invoice, with the dates that you prefer.
+</p>
+<div class="redirect-button-section">
+  <a [routerLink]="invoiceSimulatorLink">
+    <button
+      type="button"
+      mat-flat-button
+      color="primary"
+      i18n="@@homepage.invoice-simulator-button"
+    >
+      Go to the invoice simulator
+    </button>
+  </a>
+</div>
+
+<p i18n="@@homepage.check-prices">
+  You can also only check and compare PVPC prices of a period:
+</p>
+
+<dtl-range-selector
+  [(range)]="range"
+  (search)="updateTable()"
+  [autoSearch]="true"
+></dtl-range-selector>
+
+<ng-container *ngIf="prices && prices.prices && prices.prices.length > 0">
+  <dtl-datetime-values-table
+    [values]="prices?.prices"
+    [unit]="prices?.unit"
+    totalDisplay="mean"
+    [footer]="true"
+  ></dtl-datetime-values-table>
+</ng-container>

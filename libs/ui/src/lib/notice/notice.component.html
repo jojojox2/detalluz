@@ -1,0 +1,21 @@
+<div (mouseover)="holdProgress = true" (mouseout)="holdProgress = false">
+  <mat-progress-bar
+    mode="determinate"
+    [value]="100 - progress"
+    (animationend)="close()"
+    [class.paused]="holdProgress"
+  ></mat-progress-bar>
+  <ng-scrollbar [autoHeightDisabled]="false" class="message-content">
+    <mat-dialog-content>
+      <span>{{ message }}</span>
+    </mat-dialog-content>
+  </ng-scrollbar>
+  <button
+    mat-icon-button
+    (click)="close()"
+    class="close-button"
+    [class.hidden]="!holdProgress"
+  >
+    <mat-icon class="close-icon">close</mat-icon>
+  </button>
+</div>

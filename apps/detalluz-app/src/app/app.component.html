@@ -1,0 +1,11 @@
+<dtl-navigable-app
+  [title]="title"
+  [menuItems]="menuItems"
+  [languages]="languages"
+  [loginLink]="loginLink"
+>
+  <router-outlet name="dialog"></router-outlet>
+  <router-outlet></router-outlet>
+</dtl-navigable-app>
+
+<dtl-spinner></dtl-spinner>
