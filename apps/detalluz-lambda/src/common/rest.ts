@@ -2,6 +2,8 @@ import { Handler, HandlerResponse } from "@netlify/functions";
 import { Event } from "@netlify/functions/dist/function/event";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import "dayjs/locale/es";
 import { validateToken } from "./auth.service";
 import { AppError } from "./error";
@@ -57,6 +59,8 @@ export function postAuthenticated<P, B, R>(
 export function init(): void {
   dayjs.extend(customParseFormat);
   dayjs.locale("es");
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
 }
 
 function RestHandler<R>(fn: (event: Event) => R): Handler {

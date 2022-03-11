@@ -138,7 +138,11 @@ function parseValues(response: IdeConsumption): HourlyPrice[] {
 
 function getConsumptionStartDate(response: IdeConsumption): Dayjs | null {
   if (response?.fechaPeriodo) {
-    const tmpDate = dayjs(response.fechaPeriodo, "DD-MM-YYYYHH:mm:ss", true);
+    const tmpDate = dayjs.tz(
+      response.fechaPeriodo,
+      "DD-MM-YYYYHH:mm:ss",
+      "Europe/Madrid",
+    );
 
     if (tmpDate.isValid()) {
       return tmpDate;
