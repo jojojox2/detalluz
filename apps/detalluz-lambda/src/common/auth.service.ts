@@ -6,7 +6,7 @@ import { AppError } from "./error";
 export function createToken(input: UserData): string {
   console.debug(`Invoking: createToken(${input.username}, ***)`);
 
-  const publicKey = process.env["RSA_PUBLIC_KEY"];
+  const publicKey = process.env["RSA_PUBLIC_KEY"]?.replace(/\\n/gm, "\n");
   const jwtToken = process.env["JWT_TOKEN"];
 
   if (!publicKey || !jwtToken) {
@@ -58,7 +58,7 @@ export function validateToken(authorization: string | undefined): UserData {
 
   const token = authHeader[1];
 
-  const privateKey = process.env["RSA_PRIVATE_KEY"];
+  const privateKey = process.env["RSA_PRIVATE_KEY"]?.replace(/\\n/gm, "\n");
   const jwtToken = process.env["JWT_TOKEN"];
 
   if (!privateKey || !jwtToken) {
