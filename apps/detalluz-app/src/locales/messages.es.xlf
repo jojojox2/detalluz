@@ -432,7 +432,7 @@
       </trans-unit>
       <trans-unit id="fixed-price-invoice-detail.hired-power-amount" datatype="html">
         <source>Amount for hired power</source>
-        <target>Importepor potencia contratada</target>
+        <target>Importe por potencia contratada</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/fixed-price-invoice-detail/fixed-price-invoice-detail.component.ts</context>
           <context context-type="linenumber">115</context>
@@ -614,7 +614,7 @@
       </trans-unit>
       <trans-unit id="pvpc-invoice-detail.power-distribution-tolls" datatype="html">
         <source>Distribution tolls</source>
-        <target>Peajes de transporte y distribución de potecia</target>
+        <target>Peajes de transporte y distribución de potencia</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/pvpc-invoice-detail/pvpc-invoice-detail.component.ts</context>
           <context context-type="linenumber">135</context>

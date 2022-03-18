@@ -13,6 +13,7 @@
         *matCellDef="let element"
         [matTooltip]="(element.date | date: longDateFormat) || ''"
         matTooltipShowDelay="500"
+        class="date-cell"
       >
         {{ element.date | date: dateFormat }}
       </td>
@@ -131,7 +132,7 @@
           [dtlTableValueTooltipUnit]="unit"
           [dtlTableValueTooltipFormat]="valueTooltipFormat"
         >
-          {{ total.totalSum | number: valueFormat }}
+          {{ total.totalSum | number: valueFormat }} {{ unit }}
         </span>
       </td>
     </ng-container>
@@ -163,7 +164,7 @@
           [dtlTableValueTooltipUnit]="unit"
           [dtlTableValueTooltipFormat]="valueTooltipFormat"
         >
-          {{ total.totalMean | number: valueFormat }}
+          {{ total.totalMean | number: valueFormat }} {{ unit }}
         </span>
       </td>
     </ng-container>

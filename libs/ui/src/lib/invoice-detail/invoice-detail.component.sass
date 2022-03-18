@@ -23,14 +23,37 @@
 .invoice-tree .tree-group > .mat-tree-node 
   padding-left: 40px
 
+.node-description
+  display: flex
+  flex-direction: row
+
 .node-title
   padding-right: 10px
+  font-weight: 400
+
+@media screen and (max-width: 768px)
+  .node-description
+    flex-direction: column
+
+  .node-title
+    padding-bottom: 3px
 
 .node-calculation-detail
   padding-left: 10px
   padding-right: 10px
   color: mat-color($app-foreground, secondary-text)
   font-style: italic
+  font-size: 12px
+
+@media screen and (max-width: 576px)
+  .node-calculation-detail
+    font-size: 10px
+
+.expandable-node-title
+    white-space: break-spaces
+    line-height: 14px
+    text-align: left
+    font-weight: 400
 
 .node-value
   flex: 1

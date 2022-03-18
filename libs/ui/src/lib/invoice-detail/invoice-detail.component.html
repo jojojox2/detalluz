@@ -17,9 +17,11 @@
         [class.total]="node.type === 'total'"
         [class.subtotal]="node.type === 'subtotal'"
       >
-        <div class="node-title">{{ node.title }}</div>
-        <div class="node-calculation-detail" *ngIf="node.calculationDetail">
-          {{ node.calculationDetail }}
+        <div class="node-description">
+          <div class="node-title">{{ node.title }}</div>
+          <div class="node-calculation-detail" *ngIf="node.calculationDetail">
+            {{ node.calculationDetail }}
+          </div>
         </div>
         <div class="node-value" *ngIf="node.value">
           {{ node.value | currency:'EUR':'symbol':'1.2-2' }}
@@ -36,7 +38,8 @@
           <button
             mat-flat-button
             matTreeNodeToggle
-            [attr.aria-label]="'Toggle ' + node.name"
+            class="expandable-node-title"
+            [attr.aria-label]="node.title"
           >
             <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
