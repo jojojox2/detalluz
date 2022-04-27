@@ -129,7 +129,7 @@ function parseValues(response: IdeConsumption): HourlyPrice[] {
           value: Number(item.valor),
         });
       }
-      date = date.add(1, "h");
+      date = date.add(1, "h").tz("Europe/Madrid", true);
     });
   }
 
