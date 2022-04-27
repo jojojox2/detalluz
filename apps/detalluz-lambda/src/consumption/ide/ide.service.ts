@@ -9,6 +9,7 @@ const OPTIONS = {
     "Content-Type": "application/json; charset=utf-8",
     "Accept": "application/json; charset=utf-8",
   },
+  timeout: 8000,
 };
 
 export async function createSession(input: UserData): Promise<string> {

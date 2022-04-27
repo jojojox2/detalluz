@@ -10,6 +10,7 @@ const OPTIONS = {
     Authorization:
       'Token token="request_your_personal_token_sending_email_to_consultasios@ree.es"',
   },
+  timeout: 8000,
 };
 
 export async function getPVPCPrices(
