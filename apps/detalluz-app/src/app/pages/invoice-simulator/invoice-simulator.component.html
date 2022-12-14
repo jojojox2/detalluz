@@ -1,4 +1,7 @@
 <ng-container *ngIf="isAuthenticated; else unauthenticatedInvoiceDetail">
+  <dtl-contract-selector
+    (selected)="contractSelected($event)"
+  ></dtl-contract-selector>
   <dtl-range-selector
     [(range)]="range"
     (search)="updateTables()"

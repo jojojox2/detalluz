@@ -1,8 +1,8 @@
 import { init } from "../common/rest";
 import { charges, prices } from "./prices.controller";
-import { getPVPCCharges, getPVPCPrices } from "./ree/ree.service";
+import { getPVPCCharges, getPVPCPrices } from "../integrations/ree/ree.service";
 
-jest.mock("./ree/ree.service");
+jest.mock("../integrations/ree/ree.service");
 
 beforeAll(() => {
   init();

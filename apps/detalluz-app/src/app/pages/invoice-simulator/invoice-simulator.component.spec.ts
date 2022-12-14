@@ -80,12 +80,17 @@ describe("InvoiceSimulatorComponent", () => {
     expect(component.range.endDate).toBeDefined();
   });
 
-  it("should get data with valid dates", () => {
+  it("should get data with valid dates and contract", () => {
     mockPricesService.getPrices = jest.fn().mockReturnValue(of(null));
     mockChargesService.getCharges = jest.fn().mockReturnValue(of(null));
     mockConsumptionService.getConsumption = jest.fn().mockReturnValue(of(null));
 
     component.isAuthenticated = true;
+    component.contract = {
+      id: "123",
+      cups: "ESXX",
+      address: "Fake street 123",
+    };
     component.range = {
       initDate: dayjs(),
       endDate: dayjs(),
@@ -104,6 +109,11 @@ describe("InvoiceSimulatorComponent", () => {
     mockConsumptionService.getConsumption = jest.fn().mockReturnValue(of(null));
 
     component.isAuthenticated = true;
+    component.contract = {
+      id: "123",
+      cups: "ESXX",
+      address: "Fake street 123",
+    };
     component.range = {
       initDate: dayjs(),
       endDate: undefined,
@@ -114,6 +124,28 @@ describe("InvoiceSimulatorComponent", () => {
     expect(mockPricesService.getPrices).not.toHaveBeenCalled();
     expect(mockChargesService.getCharges).not.toHaveBeenCalled();
     expect(mockConsumptionService.getConsumption).not.toHaveBeenCalled();
+  });
+
+  it("should get data when a contract is selected", () => {
+    mockPricesService.getPrices = jest.fn().mockReturnValue(of(null));
+    mockChargesService.getCharges = jest.fn().mockReturnValue(of(null));
+    mockConsumptionService.getConsumption = jest.fn().mockReturnValue(of(null));
+
+    component.isAuthenticated = true;
+    component.range = {
+      initDate: dayjs(),
+      endDate: dayjs(),
+    };
+
+    component.contractSelected({
+      id: "123",
+      cups: "ESXX",
+      address: "Fake street 123",
+    });
+
+    expect(mockPricesService.getPrices).toHaveBeenCalled();
+    expect(mockChargesService.getCharges).toHaveBeenCalled();
+    expect(mockConsumptionService.getConsumption).toHaveBeenCalled();
   });
 
   it("should not retrieve data on unauthenticated user", () => {

@@ -1,3 +1,4 @@
+export * from "./lib/contract-selector/contract-selector.module";
 export * from "./lib/datetime-values-table/datetime-values-table.module";
 export * from "./lib/dialog-entry/dialog-entry.module";
 export * from "./lib/invoice-configuration/invoice-configuration.module";

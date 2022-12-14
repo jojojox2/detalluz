@@ -2,9 +2,9 @@ import { LoginData } from "@detalluz/api";
 import { createToken } from "../common/auth.service";
 import { init } from "../common/rest";
 import { consumption, login } from "./consumption.controller";
-import { createSession, getConsumption } from "./ide/ide.service";
+import { createSession, getConsumption } from "../integrations/ide/ide.service";
 
-jest.mock("./ide/ide.service");
+jest.mock("../integrations/ide/ide.service");
 jest.mock("../common/auth.service");
 
 beforeAll(() => {

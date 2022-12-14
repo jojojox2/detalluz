@@ -1,0 +1,6 @@
+<div *ngIf="selectedContract" class="contract-container">
+  <p class="address">{{selectedContract.address}}</p>
+  <p class="cups">
+    <b i18n="@@contract-selector.cups">CUPS:</b> {{selectedContract.cups}}
+  </p>
+</div>

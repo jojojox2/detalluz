@@ -1,5 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { Charges, Configuration, Consumption, Prices } from "@detalluz/api";
+import {
+  Charges,
+  Configuration,
+  Consumption,
+  Contract,
+  Prices,
+} from "@detalluz/api";
 import { DateFormats, DayjsService, RouterLinkTyped } from "@detalluz/shared";
 import {
   AuthService,
@@ -24,6 +30,8 @@ declare const $localize: LocalizeFn;
   styleUrls: ["./invoice-simulator.component.sass"],
 })
 export class InvoiceSimulatorComponent implements OnInit {
+  contract: Contract | null = null;
+
   range: RangeSelectorForm = {};
 
   prices: Prices | null = null;
@@ -78,6 +86,11 @@ export class InvoiceSimulatorComponent implements OnInit {
     });
   }
 
+  contractSelected(contract: Contract): void {
+    this.contract = contract;
+    this.updateTables();
+  }
+
   resetRange() {
     this.range = {
       initDate: this.dayjsService.today().add(-1, "month"),
@@ -86,7 +99,12 @@ export class InvoiceSimulatorComponent implements OnInit {
   }
 
   updateTables() {
-    if (!this.isAuthenticated || !this.range.initDate || !this.range.endDate) {
+    if (
+      !this.isAuthenticated ||
+      !this.contract ||
+      !this.range.initDate ||
+      !this.range.endDate
+    ) {
       return;
     }
 

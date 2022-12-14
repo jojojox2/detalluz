@@ -4,7 +4,7 @@ import {
   Validations,
 } from "../common/validations";
 import { createToken } from "../common/auth.service";
-import { createSession, getConsumption } from "./ide/ide.service";
+import { createSession, getConsumption } from "../integrations/ide/ide.service";
 import {
   Consumption,
   DateRange,

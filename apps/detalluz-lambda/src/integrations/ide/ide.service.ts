@@ -1,8 +1,15 @@
-import { Consumption, HourlyPrice, UserData } from "@detalluz/api";
+import { Consumption, Contract, HourlyPrice, UserData } from "@detalluz/api";
+import { DataPersistence } from "@nrwl/angular";
 import axios from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import { AppError } from "../../common/error";
-import { IdeConsumption, IdeDataItem, IdeLoginResponse } from "./ide.model";
+import {
+  IdeConsumption,
+  IdeDataItem,
+  IdeLoginResponse,
+  IdeManagedContracts,
+  IdeManagedCostumers,
+} from "./ide.model";
 
 const OPTIONS = {
   headers: {
@@ -87,6 +94,64 @@ export async function getConsumption(
   );
 }
 
+export async function getContracts(sessionId: string): Promise<Contract[]> {
+  console.debug(`Invoking: getContracts(***)`);
+
+  const urlManagedCostumers = `https://www.i-de.es/consumidores/rest/cto/listaClientesGestionados/`;
+
+  const authorizedOptions = {
+    ...OPTIONS,
+    ...{
+      headers: {
+        Cookie: `JSESSIONID=${sessionId}`,
+      },
+    },
+  };
+
+  const customerIds: string[] = await axios
+    .get<IdeManagedCostumers>(urlManagedCostumers, authorizedOptions)
+    .then(
+      (response) => {
+        console.debug(`[RESPONSE] ${response.status} ${response.statusText}`);
+
+        const ids: string[] = [];
+        for (const values of response.data.listaSalida) {
+          ids.push(values[2]);
+        }
+        return ids;
+      },
+      (error) => {
+        console.error(`[ERROR] ${error}`);
+
+        throw new AppError("Error while connecting with www.i-de.es", 500);
+      },
+    );
+
+  const contractPromises: Promise<Contract[]>[] = [];
+
+  for (const customerId of customerIds) {
+    const urlManagedContracts = `https://www.i-de.es/consumidores/rest/cto/listaContratosGestionados/${customerId}`;
+    console.debug(`[URL] GET ${urlManagedContracts}`);
+
+    contractPromises.push(
+      axios
+        .get<IdeManagedContracts>(urlManagedContracts, authorizedOptions)
+        .then((response) => parseContracts(response.data)),
+    );
+  }
+
+  return Promise.all(contractPromises).then(
+    (response) => {
+      return response.flat();
+    },
+    (error) => {
+      console.error(`[ERROR] ${error}`);
+
+      throw new AppError("Error while connecting with www.i-de.es", 500);
+    },
+  );
+}
+
 function extractSessionId(cookieHeaders: string[] | undefined): string {
   const sessionId = cookieHeaders
     ?.map((str) => {
@@ -151,4 +216,22 @@ function getConsumptionStartDate(response: IdeConsumption): Dayjs | null {
   }
 
   return null;
+}
+
+function parseContracts(response: IdeManagedContracts): Contract[] {
+  const contracts: Contract[] = [];
+
+  if (response.datos) {
+    for (const datos of response.datos) {
+      const contract: Contract = {
+        id: datos.codContrato,
+        cups: datos.cups,
+        address: datos.direccion,
+      };
+
+      contracts.push(contract);
+    }
+  }
+
+  return contracts;
 }

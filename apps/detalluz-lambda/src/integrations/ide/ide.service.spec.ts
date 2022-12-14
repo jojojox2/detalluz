@@ -1,7 +1,7 @@
 import axios from "axios";
 import { AppError } from "../../common/error";
 import { init } from "../../common/rest";
-import { createSession, getConsumption } from "./ide.service";
+import { createSession, getConsumption, getContracts } from "./ide.service";
 
 jest.mock("axios");
 
@@ -132,5 +132,58 @@ describe("getConsumption", () => {
     await expect(
       getConsumption("sessionId", "2021-01-01", "2021-01-01"),
     ).rejects.toBeInstanceOf(AppError);
+  });
+});
+
+describe("getContracts", () => {
+  it("should retrieve the contracts data", async () => {
+    (axios.get as jest.Mock)
+      .mockResolvedValueOnce({
+        status: 200,
+        data: {
+          listaSalida: [["", "", "123456"]],
+        },
+      })
+      .mockResolvedValue({
+        status: 200,
+        data: {
+          datos: [
+            {
+              direccion: "Fake street 123",
+              cups: "ESXX",
+              codContrato: "123",
+            },
+          ],
+        },
+      });
+
+    const contracts = await getContracts("sessionId");
+
+    expect(contracts).toBeDefined();
+    expect(contracts.length).toBe(1);
+    expect(contracts[0]).toStrictEqual({
+      id: "123",
+      cups: "ESXX",
+      address: "Fake street 123",
+    });
+  });
+
+  it("should handle a connection error for costumers", async () => {
+    (axios.get as jest.Mock).mockRejectedValue("error");
+
+    await expect(getContracts("sessionId")).rejects.toBeInstanceOf(AppError);
+  });
+
+  it("should handle a connection error for contracts", async () => {
+    (axios.get as jest.Mock)
+      .mockResolvedValueOnce({
+        status: 200,
+        data: {
+          listaSalida: [["", "", "123456"]],
+        },
+      })
+      .mockRejectedValue("error");
+
+    await expect(getContracts("sessionId")).rejects.toBeInstanceOf(AppError);
   });
 });

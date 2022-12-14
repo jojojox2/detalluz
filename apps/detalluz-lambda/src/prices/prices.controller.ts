@@ -1,6 +1,6 @@
 import { DateRange, Charges, Prices } from "@detalluz/api";
 import { validateDateRange } from "../common/validations";
-import { getPVPCCharges, getPVPCPrices } from "./ree/ree.service";
+import { getPVPCCharges, getPVPCPrices } from "../integrations/ree/ree.service";
 
 export async function prices(params?: DateRange): Promise<Prices> {
   validateDateRange(params);

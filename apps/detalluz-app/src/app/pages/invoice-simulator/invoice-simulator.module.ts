@@ -4,6 +4,7 @@ import { MaterialModule } from "@detalluz/material";
 import { InvoiceSimulatorComponent } from "./invoice-simulator.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
+  ContractSelectorModule,
   DatetimeValuesTableModule,
   FixedPriceInvoiceDetailModule,
   InvoiceConfigurationModule,
@@ -20,6 +21,7 @@ import { RouterModule } from "@angular/router";
     ReactiveFormsModule,
     MaterialModule,
     RouterModule,
+    ContractSelectorModule,
     DatetimeValuesTableModule,
     RangeSelectorModule,
     InvoiceConfigurationModule,

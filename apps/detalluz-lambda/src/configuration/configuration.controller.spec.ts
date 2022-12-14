@@ -1,9 +1,9 @@
 import { init } from "../common/rest";
 import { configuration } from "./configuration.controller";
-import { CONFIGURATION_MOCK } from "./db/db.model";
-import { getConfiguration } from "./db/db.service";
+import { CONFIGURATION_MOCK } from "../integrations/db/db.model";
+import { getConfiguration } from "../integrations/db/db.service";
 
-jest.mock("./db/db.service");
+jest.mock("../integrations/db/db.service");
 
 beforeAll(() => {
   init();
