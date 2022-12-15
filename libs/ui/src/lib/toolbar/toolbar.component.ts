@@ -63,7 +63,9 @@ export class ToolbarComponent {
         typeof this.loginLink === "string" ? [this.loginLink] : this.loginLink,
       );
     } else {
-      this.dialog.open(LoginDialogComponent);
+      this.dialog.open(LoginDialogComponent, {
+        autoFocus: "dialog",
+      });
     }
   }
 

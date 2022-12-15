@@ -66,12 +66,12 @@ describe("getConsumption", () => {
           {
             "datetime": "01-01-2021 01:00",
             "estimated": "r",
-            "consumo": 1
+            "consumo": 0.001
           },
           {
             "datetime": "01-01-2021 02:00",
             "estimated": "r",
-            "consumo": 2
+            "consumo": 0.002
           }
         ]`,
       },
@@ -101,7 +101,7 @@ describe("getConsumption", () => {
           {
             "datetime": "",
             "estimated": "r",
-            "consumo": 1
+            "consumo": 0.001
           }
         ]`,
       },

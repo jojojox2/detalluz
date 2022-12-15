@@ -1,4 +1,8 @@
-import { validateDateRange } from "../common/validations";
+import {
+  validate,
+  validateDateRange,
+  Validations,
+} from "../common/validations";
 import {
   createSession as createIdeSession,
   getConsumption as getIdeConsumption,
@@ -48,6 +52,9 @@ async function eredesConsumption(
   userData: UserData,
   params?: DateRangeWithId,
 ): Promise<Consumption> {
+  validate(params, {
+    id: [Validations.required],
+  });
   const sessionId = await createEredesSession(userData);
 
   const initDate = <string>params?.initDate;

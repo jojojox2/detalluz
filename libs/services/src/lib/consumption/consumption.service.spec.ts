@@ -71,6 +71,37 @@ describe("ConsumptionService", () => {
       .flush(mockConsumption);
   });
 
+  it("should retrieve consumption for a date range and id", (done) => {
+    const mockConsumption: Consumption = {
+      consumption: [
+        {
+          date: "2021-01-01T00:00:00.000+01:00",
+          value: 1,
+        },
+        {
+          date: "2021-01-01T01:00:00.000+01:00",
+          value: 2,
+        },
+      ],
+    };
+
+    service
+      .getConsumption("2021-01-01", "2021-01-31", "ESXX-00")
+      .subscribe((response) => {
+        expect(response).toBeDefined();
+        expect(response.consumption).toBeDefined();
+        expect(response.consumption.length).toBe(2);
+        done();
+      });
+
+    httpMock
+      .expectOne({
+        method: "GET",
+        url: `/consumption?initDate=2021-01-01&endDate=2021-01-31&id=ESXX-00`,
+      })
+      .flush(mockConsumption);
+  });
+
   it("should handle errors when getting consumption", (done) => {
     service.getConsumption("2021-01-01", "2021-01-31").subscribe({
       next: jest.fn(),

@@ -57,7 +57,8 @@ describe("LoginComponent", () => {
     });
 
     component.loginForm.setValue({
-      email: "test@example.com",
+      target: "ide",
+      username: "test@example.com",
       password: "password",
       rememberMe: false,
     });
@@ -71,7 +72,8 @@ describe("LoginComponent", () => {
       .mockReturnValue(throwError(() => "mocked error"));
 
     component.loginForm.setValue({
-      email: "test@example.com",
+      target: "ide",
+      username: "test@example.com",
       password: "password",
       rememberMe: false,
     });

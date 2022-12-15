@@ -22,6 +22,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatTreeModule } from "@angular/material/tree";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatRadioModule } from "@angular/material/radio";
 
 export * from "./dayjs-date/dayjs-date-adapter.module";
 
@@ -49,6 +50,7 @@ const modules = [
   MatTabsModule,
   MatTreeModule,
   MatSelectModule,
+  MatRadioModule,
 ];
 
 @NgModule({

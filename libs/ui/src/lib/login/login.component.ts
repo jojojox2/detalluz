@@ -6,7 +6,8 @@ import { FormGroupTyped } from "@detalluz/shared";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 
 export interface LoginForm {
-  email?: string;
+  target?: string;
+  username?: string;
   password?: string;
   rememberMe?: boolean;
 }
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
   @Input() fieldAppearance: MatFormFieldAppearance = "outline";
 
   loginForm: FormGroupTyped<LoginForm> = this.fb.group({
-    email: [null, [Validators.required, Validators.email]],
+    target: ["ide", Validators.required],
+    username: [null, [Validators.required]],
     password: [null, Validators.required],
     rememberMe: [false],
   }) as FormGroupTyped<LoginForm>;
@@ -46,7 +48,8 @@ export class LoginComponent implements OnInit {
 
     this.authService
       .createToken(
-        <string>this.loginForm.controls.email?.value,
+        <string>this.loginForm.controls.target?.value,
+        <string>this.loginForm.controls.username?.value,
         <string>this.loginForm.controls.password?.value,
         this.loginForm.controls.rememberMe?.value,
       )

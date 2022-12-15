@@ -14,12 +14,18 @@ export class ConsumptionService {
     private authService: AuthService,
   ) {}
 
-  getConsumption(initDate: string, endDate: string): Observable<Consumption> {
-    return this.http.get<Consumption>(
-      `${this.apiUrl}/consumption?initDate=${initDate}&endDate=${endDate}`,
-      {
-        headers: this.authService.getAuthenticatedHeaders(),
-      },
-    );
+  getConsumption(
+    initDate: string,
+    endDate: string,
+    id?: string,
+  ): Observable<Consumption> {
+    let url = `${this.apiUrl}/consumption?initDate=${initDate}&endDate=${endDate}`;
+
+    if (id) {
+      url += `&id=${id}`;
+    }
+    return this.http.get<Consumption>(url, {
+      headers: this.authService.getAuthenticatedHeaders(),
+    });
   }
 }

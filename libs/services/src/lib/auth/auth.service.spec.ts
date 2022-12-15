@@ -39,7 +39,7 @@ describe("AuthService", () => {
   });
 
   it("should authenticate a user with valid credentials", (done) => {
-    service.createToken("username", "password").subscribe(() => {
+    service.createToken("target", "username", "password").subscribe(() => {
       expect(service.isAuthenticated()).toBe(true);
       expect(service.getToken()).toBe("abc");
       expect(sessionStorage.getItem("token")).toBe("abc");
@@ -49,28 +49,32 @@ describe("AuthService", () => {
   });
 
   it("should store the token in browser storage", (done) => {
-    service.createToken("username", "password", true).subscribe(() => {
-      expect(sessionStorage.getItem("token")).toBe("abc");
-      expect(localStorage.getItem("token")).toBe("abc");
-      done();
-    });
+    service
+      .createToken("target", "username", "password", true)
+      .subscribe(() => {
+        expect(sessionStorage.getItem("token")).toBe("abc");
+        expect(localStorage.getItem("token")).toBe("abc");
+        done();
+      });
   });
 
   it("should remove a saved token", (done) => {
-    service.createToken("username", "password", true).subscribe(() => {
-      expect(service.getToken()).toBe("abc");
+    service
+      .createToken("target", "username", "password", true)
+      .subscribe(() => {
+        expect(service.getToken()).toBe("abc");
 
-      service.removeToken();
+        service.removeToken();
 
-      expect(service.getToken()).toBeNull();
-      expect(sessionStorage.getItem("token")).toBeNull();
-      expect(localStorage.getItem("token")).toBeNull();
-      done();
-    });
+        expect(service.getToken()).toBeNull();
+        expect(sessionStorage.getItem("token")).toBeNull();
+        expect(localStorage.getItem("token")).toBeNull();
+        done();
+      });
   });
 
   it("should create authenticated http headers", (done) => {
-    service.createToken("username", "password").subscribe(() => {
+    service.createToken("target", "username", "password").subscribe(() => {
       expect(service.getToken()).toBe("abc");
 
       const headers = service.getAuthenticatedHeaders();
@@ -93,6 +97,6 @@ describe("AuthService", () => {
         done();
       }
     });
-    service.createToken("username", "password").subscribe();
+    service.createToken("target", "username", "password").subscribe();
   });
 });

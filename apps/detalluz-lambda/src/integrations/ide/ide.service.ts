@@ -190,11 +190,13 @@ function parseValues(response: IdeConsumption): HourlyPrice[] {
     data.forEach((item: IdeDataItem) => {
       if (item) {
         consumptionList.push({
-          date: date.format("YYYY-MM-DDTHH:mm:ss.mmmZ"),
+          date: date
+            .tz("Europe/Madrid", false)
+            .format("YYYY-MM-DDTHH:mm:ss.mmmZ"),
           value: Number(item.valor),
         });
       }
-      date = date.add(1, "h").tz("Europe/Madrid", true);
+      date = date.add(1, "h");
     });
   }
 
@@ -210,7 +212,7 @@ function getConsumptionStartDate(response: IdeConsumption): Dayjs | null {
     );
 
     if (tmpDate.isValid()) {
-      return tmpDate;
+      return tmpDate.utc(false);
     }
   }
 

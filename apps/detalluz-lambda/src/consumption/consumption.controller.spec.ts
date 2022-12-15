@@ -77,6 +77,7 @@ describe("consumption", () => {
     const params = {
       initDate: "2021-01-01",
       endDate: "2021-01-01",
+      id: "ESXX-00",
     };
 
     const response = await consumption(eredesLoginData, params);

@@ -1,25 +1,34 @@
 <form [formGroup]="loginForm" (submit)="onLogin()">
+  <mat-radio-group
+    class="distributor-selector"
+    formControlName="target"
+    aria-label="Select a distributor"
+    i18n-aria-label="@@login.target.aria-label"
+  >
+    <mat-radio-button value="ide" i18n="@@login.target.ide"
+      >i-DE</mat-radio-button
+    >
+    <mat-radio-button value="eredes" i18n="@@login.target.eredes"
+      >E-REDES</mat-radio-button
+    >
+  </mat-radio-group>
+
   <mat-form-field class="login-input-field" [appearance]="fieldAppearance">
-    <mat-label i18n="@@login.email">E-Mail</mat-label>
+    <mat-label i18n="@@login.username">Username</mat-label>
     <input
       matInput
-      type="email"
-      autocomplete="usename"
-      placeholder="Enter your email"
-      i18n-placeholder="@@login.email.placeholder"
-      formControlName="email"
+      type="text"
+      autocomplete="username"
+      placeholder="Enter your username"
+      i18n-placeholder="@@login.username.placeholder"
+      formControlName="username"
     />
     <mat-error
       *ngIf="
-      loginForm.get('email').hasError('required')
+      loginForm.get('username').hasError('required')
       "
-      i18n="@@login.validation-errors.email.required"
-      >Email is required</mat-error
-    >
-    <mat-error
-      *ngIf="loginForm.get('email').hasError('email')"
-      i18n="@@login.validation-errors.email.invalid"
-      >Invalid email</mat-error
+      i18n="@@login.validation-errors.username.required"
+      >Username is required</mat-error
     >
   </mat-form-field>
 
@@ -45,7 +54,7 @@
   <mat-error
     *ngIf="invalidCredentials"
     i18n="@@login.validation-errors.invalid-credentials"
-    >Invalid email and/or password</mat-error
+    >Invalid username and/or password</mat-error
   >
 
   <mat-checkbox formControlName="rememberMe" i18n="@@login.remember-me">

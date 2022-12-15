@@ -28,13 +28,14 @@ export class AuthService {
   );
 
   createToken(
+    target: string,
     username: string,
     password: string,
     rememberSession?: boolean,
   ): Observable<void> {
     this.token = null;
     const loginData: LoginData = {
-      target: "ide",
+      target: target,
       username: username,
       password: password,
     };

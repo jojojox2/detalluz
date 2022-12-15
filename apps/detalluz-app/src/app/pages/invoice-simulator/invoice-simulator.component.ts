@@ -136,13 +136,15 @@ export class InvoiceSimulatorComponent implements OnInit {
         this.noticeService.showErrorMessage(this.genericErrorMessage);
       },
     });
-    this.consumptionService.getConsumption(initDate, endDate).subscribe({
-      next: (consumption) => {
-        this.consumption = consumption;
-      },
-      error: () => {
-        this.noticeService.showErrorMessage(this.genericErrorMessage);
-      },
-    });
+    this.consumptionService
+      .getConsumption(initDate, endDate, this.contract.id)
+      .subscribe({
+        next: (consumption) => {
+          this.consumption = consumption;
+        },
+        error: () => {
+          this.noticeService.showErrorMessage(this.genericErrorMessage);
+        },
+      });
   }
 }

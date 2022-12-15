@@ -183,15 +183,26 @@ function parseDate(date: string): string {
 function parseValues(response: EredesConsumptionItemResponse[]): HourlyPrice[] {
   const consumptionList: HourlyPrice[] = [];
 
-  response.forEach((item) => {
-    const date = getDate(item.datetime);
-    if (item.estimated === "r" && date) {
-      consumptionList.push({
-        date: date.format("YYYY-MM-DDTHH:mm:ss.mmmZ"),
-        value: item.consumo,
-      });
-    }
-  });
+  if (response?.length > 0) {
+    let date: Dayjs | null = null;
+    response.forEach((item) => {
+      if (!date) {
+        date = getDate(item.datetime);
+      }
+      if (date) {
+        if (item.estimated === "r") {
+          consumptionList.push({
+            date: date
+              .tz("Europe/Madrid", false)
+              .format("YYYY-MM-DDTHH:mm:ss.mmmZ"),
+            value: item.consumo * 1000,
+          });
+        }
+
+        date = date.add(1, "h");
+      }
+    });
+  }
 
   return consumptionList;
 }
@@ -201,7 +212,7 @@ function getDate(value: string): Dayjs | null {
     const tmpDate = dayjs.tz(value, "DD/MM/YYYY HH:mm", "Europe/Madrid");
 
     if (tmpDate.isValid()) {
-      return tmpDate.subtract(1, "hour");
+      return tmpDate.subtract(1, "h").utc(false);
     }
   }
 

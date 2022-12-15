@@ -17,7 +17,9 @@ export class DialogEntryComponent {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(LoginDialogComponent);
+    const dialogRef = this.dialog.open(LoginDialogComponent, {
+      autoFocus: "dialog",
+    });
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate(["../"], { relativeTo: this.route });
     });

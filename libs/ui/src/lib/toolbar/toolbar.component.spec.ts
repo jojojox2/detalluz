@@ -114,7 +114,9 @@ describe("ToolbarComponent", () => {
       component.login();
       fixture.detectChanges();
 
-      expect(spyOpen).toHaveBeenCalledWith(LoginDialogComponent);
+      expect(spyOpen).toHaveBeenCalledWith(LoginDialogComponent, {
+        autoFocus: "dialog",
+      });
     });
 
     it("should clear session on logout", fakeAsync(() => {
