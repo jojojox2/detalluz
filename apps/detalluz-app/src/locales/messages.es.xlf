@@ -161,7 +161,7 @@
         <target>PVPC</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-simulator.tabs.fixed-price" datatype="html">
@@ -169,7 +169,7 @@
         <target>Precio fijo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-simulator.check-hourly-details" datatype="html">
@@ -177,7 +177,7 @@
         <target> También puedes comprobar el consumo y precio detallado por horas: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
-          <context context-type="linenumber">38,41</context>
+          <context context-type="linenumber">41,44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-simulator.panels.consumption" datatype="html">
@@ -185,7 +185,7 @@
         <target> Consumo </target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
-          <context context-type="linenumber">46,48</context>
+          <context context-type="linenumber">49,51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-simulator.panels.prices" datatype="html">
@@ -193,7 +193,7 @@
         <target> Precios </target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
-          <context context-type="linenumber">62,64</context>
+          <context context-type="linenumber">65,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-simulator.login-warning" datatype="html">
@@ -211,7 +211,7 @@
       &gt;"/> para poder obtener una simulación de factura </target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.html</context>
-          <context context-type="linenumber">78,87</context>
+          <context context-type="linenumber">81,90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-simulator.generic-error" datatype="html">
@@ -219,7 +219,7 @@
         <target>¡Ups! Ha surgido un error inesperado... Por favor reinténtalo más tarde</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/invoice-simulator/invoice-simulator.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dayjs.cannot-format" datatype="html">
@@ -228,6 +228,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/date/dayjs.service.ts</context>
           <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contract-selector.cups" datatype="html">
+        <source>CUPS:</source>
+        <target>CUPS:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/contract-selector/contract-selector.component.html</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="datetime-values-table.date-header" datatype="html">
@@ -243,7 +251,7 @@
         <target> Media </target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/datetime-values-table/datetime-values-table.component.html</context>
-          <context context-type="linenumber">25,27</context>
+          <context context-type="linenumber">26,28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="datetime-values-table.sum-footer" datatype="html">
@@ -251,7 +259,7 @@
         <target> Suma </target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/datetime-values-table/datetime-values-table.component.html</context>
-          <context context-type="linenumber">34,36</context>
+          <context context-type="linenumber">35,37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="datetime-values-table.sum-header" datatype="html">
@@ -259,7 +267,7 @@
         <target> Suma </target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/datetime-values-table/datetime-values-table.component.html</context>
-          <context context-type="linenumber">112,114</context>
+          <context context-type="linenumber">113,115</context>
         </context-group>
       </trans-unit>
       <trans-unit id="datetime-values-table.mean-header" datatype="html">
@@ -267,7 +275,7 @@
         <target> Media </target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/datetime-values-table/datetime-values-table.component.html</context>
-          <context context-type="linenumber">144,146</context>
+          <context context-type="linenumber">145,147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-configuration.peak-hired-power.label" datatype="html">
@@ -684,36 +692,52 @@
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="login.email" datatype="html">
-        <source>E-Mail</source>
-        <target>E-Mail</target>
+      <trans-unit id="login.target.aria-label" datatype="html">
+        <source>Select a distributor</source>
+        <target>Selecciona una distribuidora</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="login.email.placeholder" datatype="html">
-        <source>Enter your email</source>
-        <target>Introduce tu email</target>
+      <trans-unit id="login.target.ide" datatype="html">
+        <source>i-DE</source>
+        <target>i-DE</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="login.validation-errors.email.required" datatype="html">
-        <source>Email is required</source>
-        <target>Email obligatorio</target>
+      <trans-unit id="login.target.eredes" datatype="html">
+        <source>E-REDES</source>
+        <target>E-REDES</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.username" datatype="html">
+        <source>Username</source>
+        <target>Usuario</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="login.validation-errors.email.invalid" datatype="html">
-        <source>Invalid email</source>
-        <target>Email no válido</target>
+      <trans-unit id="login.username.placeholder" datatype="html">
+        <source>Enter your username</source>
+        <target>Introduce tu usuario</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
           <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.validation-errors.username.required" datatype="html">
+        <source>Username is required</source>
+        <target>Usuario obligatorio</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.password" datatype="html">
@@ -721,7 +745,7 @@
         <target>Contraseña</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.password.placeholder" datatype="html">
@@ -729,7 +753,7 @@
         <target>Introduce tu contraseña</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.validation-errors.password.required" datatype="html">
@@ -737,15 +761,15 @@
         <target>Contraseña obligatoria</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.validation-errors.invalid-credentials" datatype="html">
-        <source>Invalid email and/or password</source>
-        <target>Email y/o contraseña inválidos</target>
+        <source>Invalid username and/or password</source>
+        <target>Usuario y/o contraseña inválidos</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.remember-me" datatype="html">
@@ -753,7 +777,7 @@
         <target> Mantener sesion iniciada </target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
-          <context context-type="linenumber">51,53</context>
+          <context context-type="linenumber">60,62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.cancel-button" datatype="html">
@@ -761,7 +785,7 @@
         <target> Cancelar </target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">70,72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.login-button" datatype="html">
@@ -769,7 +793,7 @@
         <target> Iniciar sesión </target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/login/login.component.html</context>
-          <context context-type="linenumber">71,73</context>
+          <context context-type="linenumber">80,82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="range-selector.label" datatype="html">
@@ -863,7 +887,7 @@
         <target>Selecciona idioma</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
@@ -873,9 +897,9 @@
       <trans-unit id="toolbar.user-icon.aria-label" datatype="html">
         <source>User actions</source>
          <target>Acciones de usuario</target>
-       <context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">55</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/toolbar/toolbar.component.html</context>
