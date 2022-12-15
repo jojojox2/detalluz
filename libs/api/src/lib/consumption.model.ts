@@ -1,6 +1,7 @@
 import { HourlyPrice } from "./common.model";
 
 export interface LoginData {
+  target: string;
   username: string;
   password: string;
 }

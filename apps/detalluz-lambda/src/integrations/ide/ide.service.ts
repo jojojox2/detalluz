@@ -1,5 +1,4 @@
 import { Consumption, Contract, HourlyPrice, UserData } from "@detalluz/api";
-import { DataPersistence } from "@nrwl/angular";
 import axios from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import { AppError } from "../../common/error";

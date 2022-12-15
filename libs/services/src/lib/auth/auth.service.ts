@@ -34,6 +34,7 @@ export class AuthService {
   ): Observable<void> {
     this.token = null;
     const loginData: LoginData = {
+      target: "ide",
       username: username,
       password: password,
     };

@@ -28,6 +28,7 @@ export function createToken(input: UserData): string {
     const tokenPayload: JwtPayload = {
       user: input.username,
       session: encryptedPassword,
+      target: input.target,
     };
 
     const token: string = jsonwebtoken.sign(tokenPayload, jwtToken, {
@@ -101,6 +102,7 @@ export function validateToken(authorization: string | undefined): UserData {
       .toString("utf8");
 
     const userData: UserData = {
+      target: payload["target"],
       username: payload["user"],
       password: decryptedPassword,
     };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { AppError } from "../../common/error";
 import { init } from "../../common/rest";
-import { createSession, getConsumption, getContracts } from "./ide.service";
+import { createSession, getConsumption, getContracts } from "./eredes.service";
 
 jest.mock("axios");
 
@@ -10,7 +10,7 @@ beforeAll(() => {
 });
 
 const userData = {
-  target: "ide",
+  target: "eredes",
   username: "test",
   password: "password",
 };
@@ -19,11 +19,8 @@ describe("createSession", () => {
   it("should generate a session id", async () => {
     (axios.post as jest.Mock).mockResolvedValue({
       status: 200,
-      headers: {
-        "set-cookie": ["JSESSIONID=xyz;"],
-      },
       data: {
-        success: "true",
+        result: `{"accessToken":"xyz"}`,
       },
     });
 
@@ -46,21 +43,7 @@ describe("createSession", () => {
     (axios.post as jest.Mock).mockResolvedValue({
       status: 200,
       data: {
-        success: "false",
-      },
-    });
-
-    await expect(createSession(userData)).rejects.toBeInstanceOf(AppError);
-  });
-
-  it("should detect when a session was not created", async () => {
-    (axios.post as jest.Mock).mockResolvedValue({
-      status: 200,
-      headers: {
-        "set-cookie": null,
-      },
-      data: {
-        success: "true",
+        result: `{"error":"error"}`,
       },
     });
 
@@ -76,22 +59,21 @@ describe("createSession", () => {
 
 describe("getConsumption", () => {
   it("should retrieve the consumption data", async () => {
-    (axios.get as jest.Mock).mockResolvedValue({
+    (axios.post as jest.Mock).mockResolvedValue({
       status: 200,
       data: {
-        fechaPeriodo: "01-01-202100:00:00",
-        y: {
-          data: [
-            [
-              {
-                valor: 1,
-              },
-              {
-                valor: 2,
-              },
-            ],
-          ],
-        },
+        result: `[
+          {
+            "datetime": "01-01-2021 01:00",
+            "estimated": "r",
+            "consumo": 1
+          },
+          {
+            "datetime": "01-01-2021 02:00",
+            "estimated": "r",
+            "consumo": 2
+          }
+        ]`,
       },
     });
 
@@ -99,6 +81,7 @@ describe("getConsumption", () => {
       "sessionId",
       "2021-01-01",
       "2021-01-01",
+      "ESXX-00",
     );
 
     expect(consumption).toBeDefined();
@@ -110,16 +93,25 @@ describe("getConsumption", () => {
     });
   });
 
-  it("should handle a null response", async () => {
-    (axios.get as jest.Mock).mockResolvedValue({
+  it("should handle an invalid date", async () => {
+    (axios.post as jest.Mock).mockResolvedValue({
       status: 200,
-      data: null,
+      data: {
+        result: `[
+          {
+            "datetime": "",
+            "estimated": "r",
+            "consumo": 1
+          }
+        ]`,
+      },
     });
 
     const consumption = await getConsumption(
       "sessionId",
       "2021-01-01",
       "2021-01-01",
+      "ESXX-00",
     );
 
     expect(consumption).toBeDefined();
@@ -128,62 +120,43 @@ describe("getConsumption", () => {
   });
 
   it("should handle a connection error", async () => {
-    (axios.get as jest.Mock).mockRejectedValue("error");
+    (axios.post as jest.Mock).mockRejectedValue("error");
 
     await expect(
-      getConsumption("sessionId", "2021-01-01", "2021-01-01"),
+      getConsumption("sessionId", "2021-01-01", "2021-01-01", "ESXX-00"),
     ).rejects.toBeInstanceOf(AppError);
   });
 });
 
 describe("getContracts", () => {
   it("should retrieve the contracts data", async () => {
-    (axios.get as jest.Mock)
-      .mockResolvedValueOnce({
-        status: 200,
-        data: {
-          listaSalida: [["", "", "123456"]],
-        },
-      })
-      .mockResolvedValue({
-        status: 200,
-        data: {
-          datos: [
+    (axios.post as jest.Mock).mockResolvedValue({
+      status: 200,
+      data: {
+        result: `[
             {
-              direccion: "Fake street 123",
-              cups: "ESXX",
-              codContrato: "123",
-            },
-          ],
-        },
-      });
+              "CUPS": "ESXX",
+              "DIR": "Fake street 123",
+              "ACTIVO": "S",
+              "SECTOR": "00"
+            }
+          ]`,
+      },
+    });
 
     const contracts = await getContracts("sessionId");
 
     expect(contracts).toBeDefined();
     expect(contracts.length).toBe(1);
     expect(contracts[0]).toStrictEqual({
-      id: "123",
+      id: "ESXX-00",
       cups: "ESXX",
       address: "Fake street 123",
     });
   });
 
-  it("should handle a connection error for costumers", async () => {
-    (axios.get as jest.Mock).mockRejectedValue("error");
-
-    await expect(getContracts("sessionId")).rejects.toBeInstanceOf(AppError);
-  });
-
-  it("should handle a connection error for contracts", async () => {
-    (axios.get as jest.Mock)
-      .mockResolvedValueOnce({
-        status: 200,
-        data: {
-          listaSalida: [["", "", "123456"]],
-        },
-      })
-      .mockRejectedValue("error");
+  it("should handle a connection error", async () => {
+    (axios.post as jest.Mock).mockRejectedValue("error");
 
     await expect(getContracts("sessionId")).rejects.toBeInstanceOf(AppError);
   });

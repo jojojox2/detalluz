@@ -1,54 +1,64 @@
+import { validateDateRange } from "../common/validations";
 import {
-  validate,
-  validateDateRange,
-  Validations,
-} from "../common/validations";
-import { createToken } from "../common/auth.service";
-import { createSession, getConsumption } from "../integrations/ide/ide.service";
+  createSession as createIdeSession,
+  getConsumption as getIdeConsumption,
+} from "../integrations/ide/ide.service";
+import { Consumption, DateRangeWithId, UserData } from "@detalluz/api";
+import { AppError } from "../common/error";
 import {
-  Consumption,
-  DateRange,
-  LoginData,
-  Token,
-  UserData,
-} from "@detalluz/api";
-
-export async function login(input?: LoginData): Promise<Token> {
-  validate(input, {
-    username: [Validations.required],
-    password: [Validations.required],
-  });
-
-  const userData: UserData = {
-    username: (<LoginData>input).username,
-    password: (<LoginData>input).password,
-  };
-
-  await createSession(userData);
-
-  const token = createToken(userData);
-  const result: Token = {
-    token: token,
-  };
-
-  return result;
-}
+  createSession as createEredesSession,
+  getConsumption as getEredesConsumption,
+} from "../integrations/eredes/eredes.service";
 
 export async function consumption(
   userData: UserData,
-  params?: DateRange,
+  params?: DateRangeWithId,
 ): Promise<Consumption> {
   validateDateRange(params);
 
-  const sessionId = await createSession(userData);
+  switch (userData.target) {
+    case "ide":
+      return ideConsumption(userData, params);
+    case "eredes":
+      return eredesConsumption(userData, params);
+    default:
+      throw new AppError("Invalid target");
+  }
+}
+
+async function ideConsumption(
+  userData: UserData,
+  params?: DateRangeWithId,
+): Promise<Consumption> {
+  const sessionId = await createIdeSession(userData);
 
   const initDate = <string>params?.initDate;
   const endDate = <string>params?.endDate;
 
-  const result: Consumption = await getConsumption(
+  const result: Consumption = await getIdeConsumption(
     sessionId,
     initDate,
     endDate,
+  );
+
+  return result;
+}
+
+async function eredesConsumption(
+  userData: UserData,
+  params?: DateRangeWithId,
+): Promise<Consumption> {
+  const sessionId = await createEredesSession(userData);
+
+  const initDate = <string>params?.initDate;
+  const endDate = <string>params?.endDate;
+  const id = <string>params?.id;
+
+  const result: Consumption = await getEredesConsumption(
+    sessionId,
+    initDate,
+    endDate,
+    id,
   );
 
   return result;

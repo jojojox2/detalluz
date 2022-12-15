@@ -24,6 +24,7 @@ describe("createToken", () => {
     const sign = (jsonwebtoken.sign as jest.Mock).mockReturnValue("xyz");
 
     const token = createToken({
+      target: "fake",
       username: "test",
       password: "password",
     });
@@ -50,6 +51,7 @@ describe("createToken", () => {
 
     expect(() =>
       createToken({
+        target: "fake",
         username: "test",
         password: "password",
       }),
@@ -62,6 +64,7 @@ describe("createToken", () => {
 
     expect(() =>
       createToken({
+        target: "fake",
         username: "test",
         password: "password",
       }),
@@ -74,6 +77,7 @@ describe("validateToken", () => {
     (jsonwebtoken.verify as jest.Mock).mockReturnValue({
       user: "test",
       session: "encodedPassword",
+      target: "fake",
     });
     (crypto.privateDecrypt as jest.Mock).mockReturnValue(
       Buffer.from("password", "utf8"),
@@ -83,6 +87,7 @@ describe("validateToken", () => {
 
     expect(userData).toBeDefined();
     expect(userData).toStrictEqual({
+      target: "fake",
       username: "test",
       password: "password",
     });
