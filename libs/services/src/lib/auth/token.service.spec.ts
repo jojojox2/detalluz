@@ -34,7 +34,11 @@ describe("TokenService", () => {
     };
 
     service
-      .createToken({ username: "username", password: "password" })
+      .createToken({
+        username: "username",
+        password: "password",
+        target: "fake",
+      })
       .subscribe((response) => {
         expect(response).toBeDefined();
         expect(response.token).toBe("abc");
@@ -51,7 +55,11 @@ describe("TokenService", () => {
 
   it("should handle errors when getting prices", (done) => {
     service
-      .createToken({ username: "username", password: "wrong_password" })
+      .createToken({
+        username: "username",
+        password: "wrong_password",
+        target: "fake",
+      })
       .subscribe({
         next: jest.fn(),
         error: (error) => {
