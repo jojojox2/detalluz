@@ -6,9 +6,10 @@
 </p>
 <p i18n="@@homepage.registered-usage">
   If you are registered in the
-  <a href="https://www.i-de.es/" target="_blank">i-DE</a> website, you can use
-  the same credentials in this app to get a simulation of your electricity
-  invoice, with the dates that you prefer.
+  <a href="https://www.i-de.es/" target="_blank">i-DE</a> or
+  <a href="https://www.eredesdistribucion.es/" target="_blank">E-REDES</a>
+  website, you can use the same credentials in this app to get a simulation of
+  your electricity invoice, with the dates that you prefer.
 </p>
 <div class="redirect-button-section">
   <a [routerLink]="invoiceSimulatorLink">
@@ -35,8 +36,8 @@
 
 <ng-container *ngIf="prices && prices.prices && prices.prices.length > 0">
   <dtl-datetime-values-table
-    [values]="prices?.prices"
-    [unit]="prices?.unit"
+    [values]="prices.prices"
+    [unit]="prices.unit"
     totalDisplay="mean"
     [footer]="true"
   ></dtl-datetime-values-table>

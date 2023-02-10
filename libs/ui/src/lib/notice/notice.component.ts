@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 @Component({
   selector: "dtl-notice",
   templateUrl: "./notice.component.html",
-  styleUrls: ["./notice.component.sass"],
+  styleUrls: ["./notice.component.scss"],
 })
 export class NoticeComponent implements OnInit {
   public message = "";
@@ -25,7 +25,8 @@ export class NoticeComponent implements OnInit {
 
   public getCurrentPosition(): number {
     return (
-      this.element.nativeElement?.parentElement?.parentElement?.offsetTop ?? 0
+      this.element.nativeElement?.parentElement?.parentElement?.parentElement
+        ?.parentElement?.offsetTop ?? 0
     );
   }
 

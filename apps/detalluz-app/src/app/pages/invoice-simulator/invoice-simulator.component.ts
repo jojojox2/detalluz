@@ -27,7 +27,7 @@ declare const $localize: LocalizeFn;
 @Component({
   selector: "dtl-invoice-simulator",
   templateUrl: "./invoice-simulator.component.html",
-  styleUrls: ["./invoice-simulator.component.sass"],
+  styleUrls: ["./invoice-simulator.component.scss"],
 })
 export class InvoiceSimulatorComponent implements OnInit {
   contract: Contract | null = null;

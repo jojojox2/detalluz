@@ -1,0 +1,13 @@
+@use '@angular/material' as mat;
+@forward '@angular/material' as mat-*;
+
+$primary:    mat.define-palette(mat.$cyan-palette, 300, 200, 900);
+$accent:     mat.define-palette(mat.$green-palette, A400, 200, 700);
+
+$error:      mat.define-palette(mat.$red-palette, 600);
+$warn:       mat.define-palette(mat.$amber-palette, 500);
+$success:    mat.define-palette(mat.$green-palette, 400);
+
+$foreground: mat.$light-theme-foreground-palette;
+$background: mat.define-palette(mat.$grey-palette, A100);
+$surface:    mat.define-palette(mat.$grey-palette, 50);

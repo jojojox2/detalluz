@@ -10,7 +10,7 @@ declare const $localize: LocalizeFn;
 @Component({
   selector: "dtl-homepage",
   templateUrl: "./homepage.component.html",
-  styleUrls: ["./homepage.component.sass"],
+  styleUrls: ["./homepage.component.scss"],
 })
 export class HomepageComponent implements OnInit {
   invoiceSimulatorLink = "/invoice-simulator";

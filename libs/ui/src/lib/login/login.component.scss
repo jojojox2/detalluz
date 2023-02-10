@@ -1,0 +1,42 @@
+@use "app.theme" as theme;
+
+.login-input-field {
+    width: 100%;
+}
+
+.buttons-container {
+    padding: 8px 0;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 52px;
+    align-items: center;
+    box-sizing: content-box;
+
+    .button-filler {
+        flex: auto;
+    }
+}
+
+.login-button {
+    background-color: theme.mat-get-color-from-palette(theme.$primary);
+    transition: 0.25s;
+}
+
+.login-button:hover {
+    background-color: theme.mat-get-color-from-palette(theme.$primary, lighter);
+}
+
+.distributor-selector {
+    padding-top: 8px;
+    padding-bottom: 4px;
+    display: flex;
+    flex-direction: row;
+
+    .mat-mdc-radio-button {
+        flex: 1;
+    }
+}
+
+.mat-mdc-radio-button ::ng-deep label {
+    cursor: pointer;
+}

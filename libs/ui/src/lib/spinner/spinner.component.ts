@@ -4,7 +4,7 @@ import { SpinnerService } from "./spinner.service";
 @Component({
   selector: "dtl-spinner",
   templateUrl: "./spinner.component.html",
-  styleUrls: ["./spinner.component.sass"],
+  styleUrls: ["./spinner.component.scss"],
 })
 export class SpinnerComponent {
   showSpinner = false;

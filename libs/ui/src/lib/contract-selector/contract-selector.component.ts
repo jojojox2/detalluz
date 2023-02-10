@@ -5,7 +5,7 @@ import { ContractsService } from "@detalluz/services";
 @Component({
   selector: "dtl-contract-selector",
   templateUrl: "./contract-selector.component.html",
-  styleUrls: ["./contract-selector.component.sass"],
+  styleUrls: ["./contract-selector.component.scss"],
 })
 export class ContractSelectorComponent implements OnInit {
   selectedContract?: Contract;

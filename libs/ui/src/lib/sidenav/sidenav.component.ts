@@ -9,7 +9,7 @@ export interface SidenavItem {
 @Component({
   selector: "dtl-sidenav",
   templateUrl: "./sidenav.component.html",
-  styleUrls: ["./sidenav.component.sass"],
+  styleUrls: ["./sidenav.component.scss"],
 })
 export class SidenavComponent {
   @Input() items: SidenavItem[] = [];

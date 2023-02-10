@@ -60,18 +60,18 @@
         </context-group>
       </trans-unit>
       <trans-unit id="homepage.registered-usage" datatype="html">
-        <source> If you are registered in the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.i-de.es/&quot; target=&quot;_blank&quot;&gt;"/>i-DE<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> website, you can use the same credentials in this app to get a simulation of your electricity invoice, with the dates that you prefer.
+        <source> If you are registered in the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.i-de.es/&quot; target=&quot;_blank&quot;&gt;"/>i-DE<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> or <x id="START_LINK_1" equiv-text="&lt;a href=&quot;https://www.eredesdistribucion.es/&quot; target=&quot;_blank&quot;&gt;"/>E-REDES<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> website, you can use the same credentials in this app to get a simulation of your electricity invoice, with the dates that you prefer.
 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/homepage/homepage.component.html</context>
-          <context context-type="linenumber">7,12</context>
+          <context context-type="linenumber">7,13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="homepage.invoice-simulator-button" datatype="html">
         <source> Go to the invoice simulator </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/homepage/homepage.component.html</context>
-          <context context-type="linenumber">20,22</context>
+          <context context-type="linenumber">21,23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="homepage.check-prices" datatype="html">
@@ -79,7 +79,7 @@
 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/homepage/homepage.component.html</context>
-          <context context-type="linenumber">26,28</context>
+          <context context-type="linenumber">27,29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="homepage.generic-error" datatype="html">
@@ -98,11 +98,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="info.scope-ide" datatype="html">
-        <source> The scope of it is limited only to already registered users for the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.i-de.es/&quot; target=&quot;_blank&quot;&gt;"/>i-DE<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> company (electrical distributor in Spain), with no relations or vinculations whatsover with this company. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> The credentials used in this application are only to login to these external services, and are <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>not stored<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> in any server, database or similar storage, beyond the session in your own private browser. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> The information retrieved are limited to the hourly consumption as detected by your electricity meter.
+        <source> The scope of it is limited only to already registered users for the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.i-de.es/&quot; target=&quot;_blank&quot;&gt;"/>i-DE<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> or <x id="START_LINK_1" equiv-text="&lt;a href=&quot;https://www.eredesdistribucion.es/&quot; target=&quot;_blank&quot;&gt;"/>E-REDES<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> companies (electrical distributors in Spain), with no relations or vinculations whatsover with this companies. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> The credentials used in this application are only to login to these external services, and are <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>not stored<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> in any server, database or similar storage, beyond the session in your own private browser. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> The information retrieved is limited to basic information of your contract (address and CUPS) and the hourly consumption as detected by your electricity meter.
 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/info/info.component.html</context>
-          <context context-type="linenumber">4,14</context>
+          <context context-type="linenumber">4,16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="info.scope-ree" datatype="html">
@@ -112,7 +112,7 @@
 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/info/info.component.html</context>
-          <context context-type="linenumber">16,22</context>
+          <context context-type="linenumber">18,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="info.source-code" datatype="html">
@@ -120,14 +120,14 @@
 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/info/info.component.html</context>
-          <context context-type="linenumber">24,27</context>
+          <context context-type="linenumber">26,29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="info.created-by" datatype="html">
         <source> Created by <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>jojojox2<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/detalluz-app/src/app/pages/info/info.component.html</context>
-          <context context-type="linenumber">29,30</context>
+          <context context-type="linenumber">31,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-simulator.tabs.pvpc" datatype="html">
@@ -248,82 +248,82 @@
         <source> kW </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">16,18</context>
+          <context context-type="linenumber">20,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-configuration.validation-errors.peak-hired-power.required" datatype="html">
         <source>Peak power is required</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-configuration.validation-errors.peak-hired-power.min" datatype="html">
         <source>Value cannot be negative</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-configuration.validation-errors.peak-hired-power.max" datatype="html">
         <source>Power must be below 10 kW</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-configuration.link-icon.aria-label" datatype="html">
         <source>Link power values</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
           <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-configuration.valley-hired-power.label" datatype="html">
         <source>Valley power</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-configuration.valley-hired-power.suffix" datatype="html">
         <source> kW </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">72,74</context>
+          <context context-type="linenumber">80,82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-configuration.validation-errors.valley-hired-power.required" datatype="html">
         <source>Valley power is required</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-configuration.validation-errors.valley-hired-power.min" datatype="html">
         <source>Value cannot be negative</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-configuration.validation-errors.valley-hired-power.max" datatype="html">
         <source>Power must be below 10 kW</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-configuration/invoice-configuration.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fixed-price-invoice-detail.title" datatype="html">
@@ -404,8 +404,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invoice-detail.subtitle" datatype="html">
-        <source> From <x id="INTERPOLATION" equiv-text="{{ range?.initDate?.format(&quot;LL&quot;) }}"/> until <x id="INTERPOLATION_1" equiv-text="{{
-      range?.endDate?.format(&quot;LL&quot;) }}"/> <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>(<x id="INTERPOLATION_2" equiv-text="{{ invoiceDays }}"/> days)<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+        <source> From <x id="INTERPOLATION" equiv-text="{{ range.initDate?.format(&quot;LL&quot;) }}"/> until <x id="INTERPOLATION_1" equiv-text="{{
+      range.endDate?.format(&quot;LL&quot;) }}"/> <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>(<x id="INTERPOLATION_2" equiv-text="{{ invoiceDays }}"/> days)<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui/src/lib/invoice-detail/invoice-detail.component.html</context>
           <context context-type="linenumber">4,6</context>

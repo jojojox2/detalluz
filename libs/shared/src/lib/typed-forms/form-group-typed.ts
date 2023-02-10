@@ -8,14 +8,14 @@ export interface FormGroupTyped<
 > extends Modify<FormGroup, AbstractControlTyped<T, E>> {
   controls: { [K1 in keyof T]: AbstractControlTyped<T[K1]> };
 
-  registerControl<K1 extends ExtractStrings<T>, R>(
+  registerControl<K1 extends ExtractStrings<T>, E extends ValidationErrors>(
     name: K1,
-    control: AbstractControlTyped<T[K1], R>,
-  ): AbstractControlTyped<T[K1], R>;
+    control: AbstractControlTyped<T[K1], E>,
+  ): AbstractControlTyped<T[K1], E>;
 
-  addControl<K1 extends ExtractStrings<T>, R>(
+  addControl<K1 extends ExtractStrings<T>, E extends ValidationErrors>(
     name: K1,
-    control: AbstractControlTyped<T[K1], R>,
+    control: AbstractControlTyped<T[K1], E>,
   ): void;
 
   removeControl<K1 extends ExtractStrings<T>>(
@@ -25,9 +25,9 @@ export interface FormGroupTyped<
     },
   ): void;
 
-  setControl<K1 extends ExtractStrings<T>, R>(
+  setControl<K1 extends ExtractStrings<T>, E extends ValidationErrors>(
     name: K1,
-    control: AbstractControlTyped<T[K1], R>,
+    control: AbstractControlTyped<T[K1], E>,
     options?: {
       emitEvent?: boolean;
     },

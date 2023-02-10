@@ -1,0 +1,27 @@
+@use "app.theme" as theme;
+
+.link-power {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 12px;
+    vertical-align: top;
+
+    .link-power-button {
+        background-color: theme.mat-get-color-from-palette(theme.$primary, lighter, 0.1);
+        color: theme.mat-get-color-from-palette(theme.$foreground, text, 0.6);
+    }
+
+    .link-power-button.linked {
+        background-color: theme.mat-get-color-from-palette(theme.$primary, 0.5);
+        color: theme.mat-get-color-from-palette(theme.$foreground, text);
+    }
+}
+
+.mat-mdc-form-field {
+    max-width: 120px;
+}
+
+.power-suffix {
+    padding-right: 8px;
+}

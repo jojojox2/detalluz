@@ -1,0 +1,38 @@
+@use "app.theme" as theme;
+
+:host {
+    display: block;
+    padding: 10px 15px;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    overflow: auto;
+}
+
+.invoice-detail {
+    margin-bottom: 40px;
+    margin-left: 40px;
+    margin-right: 60px;
+}
+
+@media screen and (max-width: 768px) {
+    .invoice-detail {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
+.login-warning-card {
+    margin-bottom: 40px;
+    margin-left: 40px;
+    margin-right: 60px;
+    color: theme.mat-get-color-from-palette(theme.$warn);
+
+    .login-link {
+        color: theme.mat-get-color-from-palette(theme.$primary);
+    }
+}
+
+.mat-mdc-tab-group ::ng-deep .mat-mdc-tab {
+    min-width: 160px;
+}

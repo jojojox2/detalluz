@@ -2,9 +2,9 @@
 
 # Detalluz
 
-This project provides an Angular application using Lambda functions, in order to display and check the electricity prices for the PVPC rate in Spain, in a period of time.
+This project provides an Angular application using ExpressJS for the backend (used as serverless lambdas), in order to display and check the electricity prices for the PVPC rate in Spain, in a period of time.
 
-When using credentials for the i-DE electricity distributor, it allows to check the consumption and create an invoice simulation.
+When using credentials for the i-DE or E-REDES electricity distributors, it allows to check the consumption and create an invoice simulation.
 
 
 
@@ -15,7 +15,7 @@ This project was generated using [Nx](https://nx.dev), and uses [yarn](https://c
 
 This application is deployed in [https://detalluz.netlify.app/](https://detalluz.netlify.app/) via [Netlify](https://www.netlify.com/).
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/ead61200-03fe-4d5e-849a-1c7aa7e4b7c0/deploy-status)](https://app.netlify.com/sites/detalluz/deploys)
+The backend is deployed in [https://detalluz-api.cyclic.app/](https://detalluz-api.cyclic.app/) via [Cyclic](https://www.cyclic.sh/).
 
 ## Installation
 
@@ -25,11 +25,11 @@ After [installing yarn](https://classic.yarnpkg.com/lang/en/docs/install/) local
 
 Run `yarn start` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
-Both frontend and backend servers will automatically start (backend for lambda functions will start by default in port 9000).
+Both frontend and backend servers will automatically start (backend will start by default in port 3000).
 
 ## Build
 
-Run `yarn build` to build the project, both frontend and lambda functions, by default with a production configuration.
+Run `yarn build` to build the project, both frontend and backend, by default with a production configuration.
 
 The build artifacts will be stored in the `dist/` directory.
 

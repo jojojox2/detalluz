@@ -2,8 +2,8 @@
   <mat-card-title>{{ title }}</mat-card-title>
   <ng-container *ngIf="range">
     <mat-card-subtitle i18n="@@invoice-detail.subtitle">
-      From {{ range?.initDate?.format("LL") }} until {{
-      range?.endDate?.format("LL") }} <i>({{ invoiceDays }} days)</i>
+      From {{ range.initDate?.format("LL") }} until {{
+      range.endDate?.format("LL") }} <i>({{ invoiceDays }} days)</i>
     </mat-card-subtitle>
 
     <mat-tree

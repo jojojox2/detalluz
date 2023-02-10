@@ -1,0 +1,56 @@
+{
+  "name": "detalluz-backend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/detalluz-backend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/detalluz-backend",
+        "format": ["cjs"],
+        "main": "apps/detalluz-backend/src/main.ts",
+        "tsConfig": "apps/detalluz-backend/tsconfig.app.json",
+        "assets": ["apps/detalluz-backend/src/assets"],
+        "minify": true,
+        "esbuildOptions": {
+          "legalComments": "none"
+        }      
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "detalluz-backend:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "detalluz-backend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/detalluz-backend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/detalluz-backend/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

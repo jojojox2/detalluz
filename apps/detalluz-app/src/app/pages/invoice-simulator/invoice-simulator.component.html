@@ -13,7 +13,7 @@
   ></dtl-invoice-configuration>
 
   <div class="invoice-detail">
-    <mat-tab-group>
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
       <mat-tab label="PVPC" i18n-label="@@invoice-simulator.tabs.pvpc">
         <dtl-pvpc-invoice-detail
           [range]="range"

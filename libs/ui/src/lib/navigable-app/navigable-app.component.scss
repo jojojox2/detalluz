@@ -1,0 +1,14 @@
+@use "app.theme" as theme;
+
+.main-container {
+    min-height: calc(100vh - 48px);
+}
+
+.sidenav {
+    background-color: theme.mat-get-color-from-palette(theme.$surface);
+}
+    
+.page-container {
+    min-height: calc(100vh - 48px);
+    background-color: theme.mat-get-color-from-palette(theme.$background);
+}

@@ -72,7 +72,7 @@ describe("TableValueTooltipDirective", () => {
     tick(500);
 
     const tooltipElement = overlayContainerElement.querySelector(
-      ".mat-tooltip",
+      ".mat-mdc-tooltip",
     ) as HTMLElement;
     expect(tooltipElement instanceof HTMLElement).toBe(true);
     expect(overlayContainerElement.textContent).toContain("123.45 kWh");
@@ -85,7 +85,7 @@ describe("TableValueTooltipDirective", () => {
     tick(500);
 
     const tooltipElement = overlayContainerElement.querySelector(
-      ".mat-tooltip",
+      ".mat-mdc-tooltip",
     ) as HTMLElement;
     expect(tooltipElement instanceof HTMLElement).toBe(true);
     expect(overlayContainerElement.textContent).toContain("123.45000 kWh");
@@ -99,7 +99,7 @@ describe("TableValueTooltipDirective", () => {
     tick(500);
 
     const tooltipElement = overlayContainerElement.querySelector(
-      ".mat-tooltip",
+      ".mat-mdc-tooltip",
     ) as HTMLElement;
     expect(tooltipElement instanceof HTMLElement).toBe(true);
     expect(overlayContainerElement.textContent).toBe("");
@@ -113,7 +113,7 @@ describe("TableValueTooltipDirective", () => {
     tick(500);
 
     const tooltipElement = overlayContainerElement.querySelector(
-      ".mat-tooltip",
+      ".mat-mdc-tooltip",
     ) as HTMLElement;
     expect(tooltipElement instanceof HTMLElement).toBe(true);
     expect(overlayContainerElement.textContent).toContain("123.45");

@@ -19,7 +19,7 @@ export interface InvoiceConcept {
 @Component({
   selector: "dtl-invoice-detail",
   templateUrl: "./invoice-detail.component.html",
-  styleUrls: ["./invoice-detail.component.sass"],
+  styleUrls: ["./invoice-detail.component.scss"],
   providers: [DecimalPipe],
   animations: [matExpansionAnimations.bodyExpansion],
 })

@@ -1,0 +1,32 @@
+@use "app.theme" as theme;
+
+.toolbar {
+    height: 48px;
+    cursor: default;
+}
+
+.toolbar-icon {
+    color: theme.mat-get-color-from-palette(theme.$primary, default-contrast, 0.5);
+    transition: 0.25s;
+}
+
+.toolbar-icon:hover {
+    color: theme.mat-get-color-from-palette(theme.$accent, darker);
+}
+
+.filler {
+    flex: auto;
+}
+
+.language-option {
+    text-decoration: none;
+
+    .language-selected-check {
+        width: 28px;
+        display: inline-block;
+
+        .check-icon {
+            margin-right: 0px;
+        }
+    }
+}

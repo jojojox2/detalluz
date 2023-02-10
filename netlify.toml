@@ -1,12 +1,11 @@
 [build]
   command = "yarn build"
-  functions = "./dist/apps/detalluz-lambda"
   publish = "./dist/apps/detalluz-app"
 
 
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  to = "https://detalluz-api.cyclic.app/:splat"
   status = 200
 
 [[redirects]]

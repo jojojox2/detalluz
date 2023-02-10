@@ -15,6 +15,10 @@ Cypress.Commands.add("setMocks", () => {
     fixture: "get-charges.json",
   }).as("getCharges");
 
+  cy.intercept("/api/contracts*", {
+    fixture: "get-contracts.json",
+  }).as("getContracts");
+
   cy.intercept("/api/consumption*", {
     fixture: "get-consumption.json",
   }).as("getConsumption");

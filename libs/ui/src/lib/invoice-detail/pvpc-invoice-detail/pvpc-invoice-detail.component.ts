@@ -12,7 +12,7 @@ declare const $localize: LocalizeFn;
 @Component({
   selector: "dtl-pvpc-invoice-detail",
   templateUrl: "./pvpc-invoice-detail.component.html",
-  styleUrls: ["./pvpc-invoice-detail.component.sass"],
+  styleUrls: ["./pvpc-invoice-detail.component.scss"],
 })
 export class PvpcInvoiceDetailComponent implements OnChanges {
   @Input() range: RangeSelectorForm = {};

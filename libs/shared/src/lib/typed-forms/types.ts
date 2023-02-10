@@ -24,11 +24,13 @@ export type ControlEventOptions = Pick<
   "emitEvent" | "onlySelf"
 >;
 
-export interface ValidatorTypedFn<T, E> extends ValidatorFn {
+export interface ValidatorTypedFn<T, E extends ValidationErrors>
+  extends ValidatorFn {
   (control: AbstractControlTyped<T, E>): ValidationTypedErrors<E> | null;
 }
 
-export interface AsyncValidatorTypedFn<T, E> extends AsyncValidatorFn {
+export interface AsyncValidatorTypedFn<T, E extends ValidationErrors>
+  extends AsyncValidatorFn {
   (control: AbstractControlTyped<T, E>):
     | Promise<ValidationTypedErrors<E> | null>
     | Observable<ValidationTypedErrors<E> | null>;

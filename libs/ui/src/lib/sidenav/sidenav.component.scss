@@ -1,0 +1,38 @@
+@use "app.theme" as theme;
+
+.sidenav-list {
+    min-width: 150px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.sidenav-item {
+    display: block;
+}
+
+.sidenav-item a {
+    text-decoration: none;
+}
+
+.sidenav-link {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: calc(100% - 20px);
+    min-height: 24px;
+    padding: 10px;
+    transition: 0.25s;
+    cursor: pointer;
+    color: theme.mat-get-color-from-palette(theme.$primary, default-contrast);
+    text-decoration: none;
+}
+
+.sidenav-link:hover {
+    color: theme.mat-get-color-from-palette(theme.$primary, default-contrast);
+    background-color: theme.mat-get-color-from-palette(theme.$primary);
+}
+
+.active-link .sidenav-link {
+    color: theme.mat-get-color-from-palette(theme.$accent, default-contrast);
+    background-color: theme.mat-get-color-from-palette(theme.$accent);
+}

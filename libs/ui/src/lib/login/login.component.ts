@@ -7,8 +7,8 @@ import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 
 export interface LoginForm {
   target?: string;
-  username?: string;
-  password?: string;
+  username?: string | null;
+  password?: string | null;
   rememberMe?: boolean;
 }
 
@@ -16,7 +16,7 @@ export interface LoginForm {
 @Component({
   selector: "dtl-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.sass"],
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
   @Output() login = new EventEmitter<void>();

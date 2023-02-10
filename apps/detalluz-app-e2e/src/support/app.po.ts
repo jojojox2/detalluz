@@ -44,8 +44,8 @@ export const getSidenavInvoiceSimulatorLink = () =>
 export const getSidenavInfoLink = () => getSidenav().get("a[href='/info']");
 
 export const getLoginDialog = () => cy.get("dtl-login-dialog");
-export const getLoginEmail = () =>
-  getLoginDialog().get("input[formcontrolname='email']");
+export const getLoginUsername = () =>
+  getLoginDialog().get("input[formcontrolname='username']");
 export const getLoginPassword = () =>
   getLoginDialog().get("input[formcontrolname='password']");
 export const getLoginButton = () =>

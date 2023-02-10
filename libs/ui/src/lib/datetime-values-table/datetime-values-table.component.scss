@@ -1,0 +1,122 @@
+@use "app.theme" as theme;
+
+.table-container {
+    width: fit-content;
+    overflow: auto;
+    padding: 16px;
+}
+
+.mat-mdc-table {
+    max-width: 100%;
+    cursor: default;
+}
+
+.mat-mdc-header-cell, .mat-mdc-cell {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.condensed {
+    tr.mat-mdc-header-row {
+        height: 1.5em;
+    }
+
+    tr.mat-mdc-row, tr.mat-mdc-footer-row {
+        height: 1.333em;
+        line-height: 1.333em;
+    }
+}
+    
+.mat-column-date {
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.mat-column-hour, .mat-column-sum, .mat-column-mean {
+    text-align: center;
+    font-size: 12px;
+    min-width: 24px;
+}
+
+tr.mat-mdc-row:last-of-type .mat-mdc-cell {
+    border-bottom-width: 0px;
+}
+
+tr.mat-mdc-footer-row .mat-mdc-footer-cell {
+    border-bottom-width: 0px;
+    border-top-width: 4px;
+    border-top-style: double;
+    border-top-color: theme.mat-get-color-from-palette(theme.$foreground, divider);
+}
+
+
+.mat-column-hour {
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: theme.mat-get-color-from-palette(theme.$foreground, divider);
+}
+
+th.mat-mdc-header-cell:first-of-type, td.mat-mdc-footer-cell:first-of-type {
+    padding-left: 5px;
+}
+
+td.mat-mdc-cell:first-of-type {
+    padding-left: 0px;
+}
+
+th.mat-mdc-header-cell:last-of-type, td.mat-mdc-footer-cell:last-of-type {
+    padding-right: 5px;
+}
+
+td.mat-mdc-cell:last-of-type {
+    padding-right: 0px;
+}
+
+.mat-mdc-cell.mat-column-hour, .mat-mdc-cell.mat-column-sum, .mat-mdc-cell.mat-column-mean,
+.mat-mdc-footer-cell.mat-column-hour, .mat-mdc-footer-cell.mat-column-sum, .mat-mdc-footer-cell.mat-column-mean {
+    padding-left: 0px;
+    padding-right: 0px;
+    min-width: 48px;
+}
+
+.date-cell {
+    font-family: monospace;
+}
+
+.colored-value {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: calc(100% - 10px);
+}
+
+.mat-mdc-cell.mat-column-hour.multi-value {
+    display: flex;
+    white-space: nowrap;
+}
+
+.multi-value .colored-value:not(:first-child) {
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: theme.mat-get-color-from-palette(theme.$foreground, divider);
+}
+
+tr.mat-mdc-footer-row .mat-column-date, tr.mat-mdc-footer-row .mat-column-hour {
+    font-style: italic;
+}
+
+.mat-column-sum, .mat-column-mean {
+    border-left-width: 4px;
+    border-left-style: double;
+    border-left-color: theme.mat-get-color-from-palette(theme.$foreground, divider);
+    font-style: italic;
+}
+
+.total-cell {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.mat-mdc-tooltip-trigger {
+    touch-action: auto !important;
+}

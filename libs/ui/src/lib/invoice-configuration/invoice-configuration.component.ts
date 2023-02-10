@@ -6,15 +6,15 @@ import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { distinctUntilChanged, tap, debounceTime } from "rxjs";
 
 export interface InvoiceConfiguration {
-  peakHiredPower?: number;
-  valleyHiredPower?: number;
+  peakHiredPower?: number | null;
+  valleyHiredPower?: number | null;
 }
 
 @UntilDestroy()
 @Component({
   selector: "dtl-invoice-configuration",
   templateUrl: "./invoice-configuration.component.html",
-  styleUrls: ["./invoice-configuration.component.sass"],
+  styleUrls: ["./invoice-configuration.component.scss"],
 })
 export class InvoiceConfigurationComponent implements OnInit {
   @Input() set data(value: InvoiceConfiguration) {

@@ -13,7 +13,7 @@ import {
   getCalendarLastDay,
   getLoginWarning,
   getLoginWarningLink,
-  getLoginEmail,
+  getLoginUsername,
   getLoginPassword,
   getLoginButton,
   getInvoiceConfiguration,
@@ -76,6 +76,9 @@ describe("detalluz-app", () => {
   it("should navigate to invoice simulator page", () => {
     getRedirectButton().click();
     cy.location("pathname").should("eq", "/invoice-simulator");
+
+    cy.wait("@getConfiguration");
+
     getLoginWarning().should("be.visible");
   });
 
@@ -85,11 +88,13 @@ describe("detalluz-app", () => {
   });
 
   it("should login with valid data and display invoice simulation", () => {
-    getLoginEmail().type("test@example.com");
+    getLoginUsername().type("test@example.com");
     getLoginPassword().type("123456");
     getLoginButton().click();
 
     cy.wait("@postToken");
+    cy.wait("@getPrices");
+    cy.wait("@getConsumption");
 
     getRangeSelector().should("be.visible");
     getInvoiceConfiguration().should("be.visible");

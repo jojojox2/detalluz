@@ -33,10 +33,8 @@ export class NoticeService {
     );
 
     if (pendingDialog) {
-      console.log("Dialog pending, adding to queue", data);
       this.pendingNotices.push(data);
     } else {
-      console.log("No dialog pending, opening", data);
       this.openDialog(data);
     }
   }

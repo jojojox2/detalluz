@@ -7,7 +7,7 @@ import { Language } from "../toolbar/toolbar.component";
 @Component({
   selector: "dtl-navigable-app",
   templateUrl: "./navigable-app.component.html",
-  styleUrls: ["./navigable-app.component.sass"],
+  styleUrls: ["./navigable-app.component.scss"],
 })
 export class NavigableAppComponent {
   @Input() title!: string;

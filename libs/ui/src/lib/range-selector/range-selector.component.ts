@@ -15,7 +15,7 @@ export interface RangeSelectorForm {
 @Component({
   selector: "dtl-range-selector",
   templateUrl: "./range-selector.component.html",
-  styleUrls: ["./range-selector.component.sass"],
+  styleUrls: ["./range-selector.component.scss"],
 })
 export class RangeSelectorComponent implements OnInit {
   @Input() set range(value: RangeSelectorForm) {

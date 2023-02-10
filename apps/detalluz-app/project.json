@@ -1,0 +1,130 @@
+{
+  "name": "detalluz-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "root": "apps/detalluz-app",
+  "sourceRoot": "apps/detalluz-app/src",
+  "prefix": "(dtl|detalluz)",
+  "i18n": {
+    "sourceLocale": "en",
+    "locales": {
+      "es": "apps/detalluz-app/src/locales/messages.es.xlf"
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "localize": false,
+        "i18nMissingTranslation": "warning",
+        "outputPath": "dist/apps/detalluz-app",
+        "index": "apps/detalluz-app/src/index.html",
+        "main": "apps/detalluz-app/src/main.ts",
+        "polyfills": "apps/detalluz-app/src/polyfills.ts",
+        "tsConfig": "apps/detalluz-app/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/detalluz-app/src/favicon.ico",
+          "apps/detalluz-app/src/assets"
+        ],
+        "styles": ["apps/detalluz-app/src/styles.scss"],
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/material/src/lib"]
+        },
+        "allowedCommonJsDependencies": [
+          "dayjs"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "localize": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/detalluz-app/src/environments/environment.ts",
+              "with": "apps/detalluz-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        },
+        "es": {
+          "localize": ["es"],
+          "baseHref": "/es"
+        },
+        "en": {
+          "localize": ["en"],
+          "baseHref": "/en"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "detalluz-app:build:production"
+        },
+        "development": {
+          "browserTarget": "detalluz-app:build:development",
+          "proxyConfig": "apps/detalluz-app/proxy.conf.json"
+        },
+        "es": {
+          "browserTarget": "detalluz-app:build:development,es",
+          "proxyConfig": "apps/detalluz-app/proxy.conf.json"
+        },
+        "en": {
+          "browserTarget": "detalluz-app:build:development,en",
+          "proxyConfig": "apps/detalluz-app/proxy.conf.json"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "detalluz-app:build",
+        "outputPath": "apps/detalluz-app/src/locales"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/detalluz-app/src/**/*.ts",
+          "apps/detalluz-app/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/detalluz-app"],
+      "options": {
+        "jestConfig": "apps/detalluz-app/jest.config.ts",
+        "codeCoverage": true,
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

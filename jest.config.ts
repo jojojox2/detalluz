@@ -1,8 +1,5 @@
-const { getJestProjects } = require('@nrwl/jest');
-import type { Config } from "@jest/types";
+const { getJestProjects } = require("@nrwl/jest");
 
-const config: Config.InitialOptions = {
+export default {
   projects: getJestProjects(),
 };
-
-export default config;

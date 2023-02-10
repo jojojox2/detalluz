@@ -12,7 +12,7 @@ declare const $localize: LocalizeFn;
 @Component({
   selector: "dtl-fixed-price-invoice-detail",
   templateUrl: "./fixed-price-invoice-detail.component.html",
-  styleUrls: ["./fixed-price-invoice-detail.component.sass"],
+  styleUrls: ["./fixed-price-invoice-detail.component.scss"],
 })
 export class FixedPriceInvoiceDetailComponent implements OnChanges {
   @Input() range: RangeSelectorForm = {};

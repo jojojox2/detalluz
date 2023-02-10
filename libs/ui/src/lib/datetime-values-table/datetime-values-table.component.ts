@@ -49,7 +49,7 @@ type TotalDisplay = "none" | "sum" | "mean";
 @Component({
   selector: "dtl-datetime-values-table",
   templateUrl: "./datetime-values-table.component.html",
-  styleUrls: ["./datetime-values-table.component.sass"],
+  styleUrls: ["./datetime-values-table.component.scss"],
 })
 export class DatetimeValuesTableComponent implements OnInit, OnChanges {
   @Input() values?: DatetimeValue[] = [];

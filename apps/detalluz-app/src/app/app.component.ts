@@ -8,7 +8,7 @@ declare const $localize: LocalizeFn;
 @Component({
   selector: "detalluz-app",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.sass"],
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
   title = $localize`:@@detalluz-app.title:Detalluz`;
