@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatInputModule } from "@angular/material/input";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -28,7 +27,6 @@ export * from "./dayjs-date/dayjs-date-adapter.module";
 
 const modules = [
   BrowserAnimationsModule,
-  FlexLayoutModule,
   MatInputModule,
   MatCardModule,
   MatCheckboxModule,
