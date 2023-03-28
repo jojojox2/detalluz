@@ -21,9 +21,12 @@ import {
 } from "@detalluz/ui";
 import { ActivatedRoute } from "@angular/router";
 import { LocalizeFn } from "@angular/localize/init";
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 
 declare const $localize: LocalizeFn;
 
+@UntilDestroy()
 @Component({
   selector: "dtl-invoice-simulator",
   templateUrl: "./invoice-simulator.component.html",
@@ -52,10 +55,15 @@ export class InvoiceSimulatorComponent implements OnInit {
     valleyHiredPower: 4.6,
   };
 
+  mobile = false;
+  consumptionPanelOpened = false;
+  pricesPanelOpened = false;
+
   private genericErrorMessage = $localize`:@@invoice-simulator.generic-error:Oops! An unexpected error occurred... Please try again later`;
 
   constructor(
     private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver,
     private pricesService: PricesService,
     private chargesService: ChargesService,
     private consumptionService: ConsumptionService,
@@ -63,11 +71,17 @@ export class InvoiceSimulatorComponent implements OnInit {
     private dayjsService: DayjsService,
     private authService: AuthService,
     private noticeService: NoticeService,
-  ) {}
+  ) {
+    this.breakpointObserver
+      .observe([Breakpoints.XSmall])
+      .pipe(untilDestroyed(this))
+      .subscribe((result) => {
+        this.mobile = result.matches;
+      });
+  }
 
   ngOnInit(): void {
     this.resetRange();
-    this.getConfiguration();
 
     this.authService.watchAuthentication().subscribe((isAuthenticated) => {
       this.isAuthenticated = isAuthenticated;
@@ -107,6 +121,8 @@ export class InvoiceSimulatorComponent implements OnInit {
     ) {
       return;
     }
+
+    this.getConfiguration();
 
     const initDate = this.dayjsService.format(
       this.range.initDate,

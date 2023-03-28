@@ -44,3 +44,7 @@ Run `yarn e2e` to execute the end-to-end tests via [Cypress](https://www.cypress
 ## Code quality
 
 Run `yarn lint` to execute the analysis of code quality via [ESLint](https://eslint.org/).
+
+## Docker
+
+Run `docker compose up -d --build` to build and launch the app with [Docker](https://www.docker.com/). Navigate to http://localhost:8000/ to check the deployed app.

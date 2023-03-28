@@ -8,7 +8,7 @@
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/detalluz-app-e2e/cypress.json",
+        "cypressConfig": "apps/detalluz-app-e2e/cypress.config.ts",
         "devServerTarget": "detalluz-app:serve:development"
       },
       "configurations": {

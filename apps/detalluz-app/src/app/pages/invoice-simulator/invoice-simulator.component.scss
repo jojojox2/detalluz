@@ -7,6 +7,7 @@
 
 ::ng-deep .mat-expansion-panel-body {
     overflow: auto;
+    padding: 0 16px 16px;
 }
 
 .invoice-detail {
@@ -26,6 +27,7 @@
     margin-bottom: 40px;
     margin-left: 40px;
     margin-right: 60px;
+    padding: 16px;
     color: theme.mat-get-color-from-palette(theme.$warn);
 
     .login-link {

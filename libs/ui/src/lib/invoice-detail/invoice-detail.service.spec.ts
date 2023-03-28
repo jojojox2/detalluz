@@ -10,7 +10,12 @@ import { DayjsService, Defined, NumberUtilsService } from "@detalluz/shared";
 import dayjs from "dayjs";
 import { InvoiceConfiguration } from "../invoice-configuration/invoice-configuration.component";
 import { RangeSelectorForm } from "../range-selector/range-selector.component";
-import { InvoiceConcept } from "./invoice-detail.component";
+import {
+  InvoiceConcept,
+  InvoiceEntry,
+  InvoicePeriodEntry,
+  InvoiceRangedEntry,
+} from "./invoice-detail.model";
 
 import { InvoiceDetailService } from "./invoice-detail.service";
 
@@ -154,6 +159,29 @@ describe("InvoiceDetailService", () => {
       value: 10,
     },
   ];
+  const exampleInvoiceEntries: (InvoiceEntry | InvoicePeriodEntry)[] = [
+    {
+      initDate: dayjs(),
+      endDate: dayjs(),
+      value: 3,
+      P1: {
+        initDate: dayjs(),
+        endDate: dayjs(),
+        value: 1,
+      },
+      P2: {
+        initDate: dayjs(),
+        endDate: dayjs(),
+        value: 2,
+      },
+    },
+    {
+      initDate: dayjs(),
+      endDate: dayjs(),
+      value: 10,
+    },
+  ];
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [DayjsService, NumberUtilsService, DecimalPipe],
@@ -165,86 +193,68 @@ describe("InvoiceDetailService", () => {
     expect(service).toBeTruthy();
   });
 
-  describe("calculatePowerCostsSubconceptsByPeriod", () => {
-    it("should generate subconcepts", () => {
-      const subconcepts = service.calculatePowerCostsSubconceptsByPeriod(
+  describe("calculatePowerCostsByPeriod", () => {
+    it("should generate an entry", () => {
+      const invoiceRangedEntry = service.calculatePowerCostsByPeriod(
         exampleTemporalPeriodConfiguration,
-        "title",
         exampleRange,
         exampleInvoiceConfiguration,
       );
-      expect(subconcepts).toBeDefined();
+      expect(invoiceRangedEntry).toBeDefined();
     });
   });
 
-  describe("calculatePowerCostsSubconceptsByValue", () => {
-    it("should generate subconcepts", () => {
-      const subconcepts = service.calculatePowerCostsSubconceptsByValue(
+  describe("calculatePowerCostsByValue", () => {
+    it("should generate an entry", () => {
+      const invoiceRangedEntry = service.calculatePowerCostsByValue(
         exampleTemporalConfigurationValue,
-        "title",
         exampleRange,
         1,
       );
-      expect(subconcepts).toBeDefined();
+      expect(invoiceRangedEntry).toBeDefined();
     });
   });
 
-  describe("calculateEnergyCostsSubconceptsByPeriod", () => {
-    it("should generate subconcepts", () => {
-      const subconcepts = service.calculateEnergyCostsSubconceptsByPeriod(
+  describe("calculateEnergyCostsByPeriod", () => {
+    it("should generate an entry", () => {
+      const invoiceRangedEntry = service.calculateEnergyCostsByPeriod(
         exampleTemporalPeriodConfiguration,
         exampleConsumptionByDay,
-        "title",
         exampleRange,
       );
-      expect(subconcepts).toBeDefined();
+      expect(invoiceRangedEntry).toBeDefined();
     });
   });
 
-  describe("calculateEnergyCostsSubconceptsByValue", () => {
-    it("should generate subconcepts", () => {
-      const subconcepts = service.calculateEnergyCostsSubconceptsByValue(
+  describe("calculateEnergyCostsByValue", () => {
+    it("should generate an entry", () => {
+      const invoiceRangedEntry = service.calculateEnergyCostsByValue(
         exampleTemporalConfigurationValue,
         exampleConsumptionByDay,
-        "title",
         exampleRange,
       );
-      expect(subconcepts).toBeDefined();
-    });
-
-    it("should aggregate subconcepts into parent when only one is present", () => {
-      const subconcepts = service.calculateEnergyCostsSubconceptsByValue(
-        [exampleTemporalConfigurationValue[0]],
-        exampleConsumptionByDay,
-        "title",
-        exampleRange,
-      );
-      expect(subconcepts).toBeDefined();
-      expect(subconcepts).toHaveLength(1);
-      expect(subconcepts[0].subconcepts).not.toBeDefined();
+      expect(invoiceRangedEntry).toBeDefined();
     });
   });
 
-  describe("calculatePercentageConcept", () => {
-    it("should generate concept", () => {
-      const concept = service.calculatePercentageConcept(
-        exampleConcepts,
-        "title",
+  describe("calculatePercentage", () => {
+    it("should generate an entry", () => {
+      const entry = service.calculatePercentage(
+        exampleInvoiceEntries,
         exampleTemporalConfigurationValue,
         exampleRange,
       );
-      expect(concept).toBeDefined();
+      expect(entry).toBeDefined();
     });
   });
 
   describe("calculateDailyCost", () => {
-    it("should generate concept", () => {
-      const concept = service.calculateDailyCost(
-        "title",
+    it("should generate an entry", () => {
+      const entry = service.calculateDailyCost(
         exampleRange,
         exampleTemporalConfigurationValue,
       );
-      expect(concept).toBeDefined();
+      expect(entry).toBeDefined();
     });
   });
 
@@ -268,22 +278,40 @@ describe("InvoiceDetailService", () => {
     });
   });
 
-  describe("calculateSumConcept", () => {
-    it("should generate concept", () => {
-      const concept = service.calculateSumConcept(
-        exampleConcepts,
-        "title",
-        "total",
-      );
-      expect(concept).toBeDefined();
+  describe("calculateSum", () => {
+    it("should generate an entry", () => {
+      const entry = service.calculateSum(exampleInvoiceEntries, exampleRange);
+      expect(entry).toBeDefined();
     });
   });
 
-  describe("sumConceptsValues", () => {
-    it("should generate concept", () => {
-      const value = service.sumConceptsValues(exampleConcepts);
+  describe("sumValues", () => {
+    it("should sum all values", () => {
+      const value = service.sumValues(exampleInvoiceEntries);
       expect(value).toBeDefined();
       expect(value).toBe(13);
+    });
+  });
+
+  describe("buildInvoiceConcept", () => {
+    it("should build a power invoice concept", () => {
+      const value = service.buildInvoiceConcept(
+        "title",
+        exampleInvoiceEntries[0],
+        exampleInvoiceEntries,
+        service.powerSubconceptsTitles,
+      );
+      expect(value).toBeDefined();
+    });
+
+    it("should build an energy invoice concept", () => {
+      const value = service.buildInvoiceConcept(
+        "title",
+        exampleInvoiceEntries[1],
+        exampleInvoiceEntries,
+        service.energySubconceptsTitles,
+      );
+      expect(value).toBeDefined();
     });
   });
 });

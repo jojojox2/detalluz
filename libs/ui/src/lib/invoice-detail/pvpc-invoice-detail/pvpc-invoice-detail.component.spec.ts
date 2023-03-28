@@ -79,15 +79,18 @@ describe("PvpcInvoiceDetailComponent", () => {
 
   beforeEach(async () => {
     mockInvoiceDetailService = {
-      calculatePowerCostsSubconceptsByPeriod: jest.fn().mockReturnValue([]),
-      calculatePowerCostsSubconceptsByValue: jest.fn().mockReturnValue([]),
-      calculateEnergyCostsSubconceptsByPeriod: jest.fn().mockReturnValue([]),
-      calculateEnergyCostsSubconceptsByValue: jest.fn().mockReturnValue([]),
-      calculatePercentageConcept: jest.fn().mockReturnValue({}),
+      calculatePowerCostsByPeriod: jest.fn().mockReturnValue({ ranges: [] }),
+      calculatePowerCostsByValue: jest.fn().mockReturnValue({ ranges: [] }),
+      calculateEnergyCostsByPeriod: jest.fn().mockReturnValue({ ranges: [] }),
+      calculateEnergyCostsByValue: jest.fn().mockReturnValue({ ranges: [] }),
+      calculatePercentage: jest.fn().mockReturnValue({}),
       calculateDailyCost: jest.fn().mockReturnValue({}),
       calculateConsumptionByDay: jest.fn().mockReturnValue({}),
-      calculateSumConcept: jest.fn().mockReturnValue({}),
-      sumConceptsValues: jest.fn().mockReturnValue(0),
+      calculateSum: jest.fn().mockReturnValue({}),
+      sumValues: jest.fn().mockReturnValue(0),
+      buildInvoiceConcept: jest.fn().mockReturnValue({}),
+      powerSubconceptsTitles: {},
+      energySubconceptsTitles: {},
     };
 
     await TestBed.configureTestingModule({

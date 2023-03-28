@@ -6,9 +6,8 @@ import { ReeResponse, ReeValue } from "./ree.model";
 
 const OPTIONS = {
   headers: {
-    Accept: "application/json; charset=utf-8",
-    Authorization:
-      'Token token="request_your_personal_token_sending_email_to_consultasios@ree.es"',
+    "Accept": "application/json; charset=utf-8",
+    "x-api-key": process.env["REE_API_KEY"] || "",
   },
 };
 
@@ -71,9 +70,12 @@ export async function getPVPCCharges(
 }
 
 function parseDate(date: string, hour = 0): string {
-  return dayjs(date + "T" + (hour < 10 ? "0" + hour : hour) + ":00:00").format(
-    "YYYY-MM-DDTHH:mm:ssZ",
-  );
+  return dayjs
+    .tz(
+      date + "T" + (hour < 10 ? "0" + hour : hour) + ":00:00",
+      "Europe/Madrid",
+    )
+    .format("YYYY-MM-DDTHH:mm:ssZ");
 }
 
 function parseValues(response: ReeResponse): HourlyPrice[] {

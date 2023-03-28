@@ -17,10 +17,7 @@ import {
   getLoginPassword,
   getLoginButton,
   getInvoiceConfiguration,
-  getInvoicesTabs,
   getPVPCInvoiceDetail,
-  getFixedPriceInvoiceTab,
-  getFixedPriceInvoiceDetail,
   getSidenavInfoLink,
 } from "../support/app.po";
 
@@ -28,16 +25,15 @@ describe("detalluz-app", () => {
   before(() => {
     cy.setMocks();
     cy.clearSession();
-    cy.visit("/");
   });
 
   beforeEach(function () {
     cy.setMocks();
+    cy.visit("/");
+    cy.wait(["@getPrices"]);
   });
 
   it("should display homepage", () => {
-    cy.wait(["@getPrices"]);
-
     getPageTitle().contains("Welcome to Detalluz!");
     getRedirectButton()
       .should("be.enabled")
@@ -77,34 +73,32 @@ describe("detalluz-app", () => {
     getRedirectButton().click();
     cy.location("pathname").should("eq", "/invoice-simulator");
 
-    cy.wait("@getConfiguration");
-
     getLoginWarning().should("be.visible");
   });
 
   it("should open login dialog", () => {
+    cy.visit("/invoice-simulator");
+
     getLoginWarningLink().click();
     getLoginDialog().should("be.visible");
   });
 
   it("should login with valid data and display invoice simulation", () => {
+    cy.visit("/invoice-simulator");
+    getLoginWarningLink().click();
+
     getLoginUsername().type("test@example.com");
     getLoginPassword().type("123456");
     getLoginButton().click();
 
     cy.wait("@postToken");
+    cy.wait("@getConfiguration");
     cy.wait("@getPrices");
     cy.wait("@getConsumption");
 
     getRangeSelector().should("be.visible");
     getInvoiceConfiguration().should("be.visible");
-    getInvoicesTabs().should("be.visible");
     getPVPCInvoiceDetail().should("be.visible");
-  });
-
-  it("should allow to change to fixed price invoice simulation", () => {
-    getFixedPriceInvoiceTab().click();
-    getFixedPriceInvoiceDetail().should("be.visible");
   });
 
   it("should navigate to info page", () => {

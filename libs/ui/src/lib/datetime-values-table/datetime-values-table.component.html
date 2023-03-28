@@ -1,6 +1,6 @@
-<mat-card class="table-container mat-elevation-z8">
+<div class="table-container" [class.mobile]="mobile">
   <table mat-table [dataSource]="dataSource" class="condensed">
-    <ng-container matColumnDef="date">
+    <ng-container matColumnDef="date" sticky>
       <th
         mat-header-cell
         *matHeaderCellDef
@@ -14,8 +14,9 @@
         [matTooltip]="(element.date | date: longDateFormat) || ''"
         matTooltipShowDelay="500"
         class="date-cell"
+        [class.weekend]="isWeekend(element.date)"
       >
-        {{ element.date | date: dateFormat }}
+        {{ element.date | date: mobile ? shortDateFormat : dateFormat }}
       </td>
 
       <ng-container *ngIf="totalDisplay === 'mean'">
@@ -132,7 +133,8 @@
           [dtlTableValueTooltipUnit]="unit"
           [dtlTableValueTooltipFormat]="valueTooltipFormat"
         >
-          {{ total.totalSum | number: valueFormat }} {{ unit }}
+          {{ total.totalSum | number: valueFormat }}
+          <ng-container *ngIf="totalUnit"> {{ unit }} </ng-container>
         </span>
       </td>
     </ng-container>
@@ -164,15 +166,16 @@
           [dtlTableValueTooltipUnit]="unit"
           [dtlTableValueTooltipFormat]="valueTooltipFormat"
         >
-          {{ total.totalMean | number: valueFormat }} {{ unit }}
+          {{ total.totalMean | number: valueFormat }}
+          <ng-container *ngIf="totalUnit"> {{ unit }} </ng-container>
         </span>
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     <ng-container *ngIf="footer && totalDisplay !== 'none'">
       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
     </ng-container>
   </table>
-</mat-card>
+</div>

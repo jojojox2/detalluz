@@ -5,16 +5,9 @@ import { LocalizeFn } from "@angular/localize/init";
 import { matExpansionAnimations } from "@angular/material/expansion";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { RangeSelectorForm } from "../range-selector/range-selector.component";
+import { InvoiceConcept } from "./invoice-detail.model";
 
 declare const $localize: LocalizeFn;
-
-export interface InvoiceConcept {
-  title: string;
-  calculationDetail?: string;
-  value?: number;
-  subconcepts?: InvoiceConcept[];
-  type?: "total" | "subtotal";
-}
 
 @Component({
   selector: "dtl-invoice-detail",

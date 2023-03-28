@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  frontend:
+    container_name: detalluz_frontend
+    build:
+      context: .
+      dockerfile: ./apps/detalluz-app/Dockerfile
+    ports:
+      - "${DETALLUZ_APP_PORT:-8000}:8000"
+    networks:
+      - detalluz
+    environment:
+      - DETALLUZ_BACKEND_URL=${DETALLUZ_BACKEND_URL:-http://backend:3000/}
+
+  backend:
+    container_name: detalluz_backend
+    build:
+      context: .
+      dockerfile: ./apps/detalluz-backend/Dockerfile
+    networks:
+      - detalluz
+    environment:
+      - JWT_TOKEN=${JWT_TOKEN}
+      - RSA_PUBLIC_KEY=${RSA_PUBLIC_KEY}
+      - RSA_PRIVATE_KEY=${RSA_PRIVATE_KEY}
+      - MONGODB_URI=${MONGODB_URI}
+      - EREDES_API_KEY=${EREDES_API_KEY}
+      - REE_API_KEY=${REE_API_KEY}
+
+networks:
+  detalluz:

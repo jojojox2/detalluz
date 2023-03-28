@@ -16,7 +16,12 @@ import {
 import { Dayjs } from "dayjs";
 import { InvoiceConfiguration } from "../invoice-configuration/invoice-configuration.component";
 import { RangeSelectorForm } from "../range-selector/range-selector.component";
-import { InvoiceConcept } from "./invoice-detail.component";
+import {
+  InvoiceConcept,
+  InvoiceEntry,
+  InvoicePeriodEntry,
+  InvoiceRangedEntry,
+} from "./invoice-detail.model";
 
 @Injectable({
   providedIn: "root",
@@ -27,13 +32,16 @@ export class InvoiceDetailService {
     private numberUtilsService: NumberUtilsService,
   ) {}
 
-  calculatePowerCostsSubconceptsByPeriod(
+  calculatePowerCostsByPeriod(
     config: TemporalPeriodConfiguration[] | undefined,
-    title: string,
     range: Defined<RangeSelectorForm>,
     invoiceConfiguration: InvoiceConfiguration,
-  ): InvoiceConcept[] {
-    const concepts: InvoiceConcept[] = [];
+  ): InvoiceRangedEntry<InvoicePeriodEntry> {
+    const invoiceRangedEntry: InvoiceRangedEntry<InvoicePeriodEntry> = {
+      initDate: range.initDate,
+      endDate: range.endDate,
+      ranges: [],
+    };
 
     const temporalConfigurations = this.getAppliedTemporalConfiguration(
       config,
@@ -53,57 +61,51 @@ export class InvoiceDetailService {
           ? validUntil
           : range.endDate;
 
-      const days = endDate.diff(initDate, "day") + 1;
-
-      const concept: InvoiceConcept = {
-        title: title,
-        subconcepts: [],
+      const invoicePeriodEntry: InvoicePeriodEntry = {
+        initDate: initDate,
+        endDate: endDate,
       };
 
       if (tempConfig.value.P1) {
-        concept.subconcepts?.push(
-          this.calculatePowerPeriodSubconcept(
-            $localize`:@@invoice-detail.power-period.p1-peak:P1 (peak)`,
-            invoiceConfiguration?.peakHiredPower ?? 0,
-            tempConfig.value.P1,
-            days,
-          ),
+        invoicePeriodEntry.P1 = this.calculatePowerPeriod(
+          invoiceConfiguration?.peakHiredPower ?? 0,
+          tempConfig.value.P1,
+          initDate,
+          endDate,
         );
       }
 
       if (tempConfig.value.P2) {
-        concept.subconcepts?.push(
-          this.calculatePowerPeriodSubconcept(
-            $localize`:@@invoice-detail.power-period.p2-valley:P2 (valley)`,
-            invoiceConfiguration?.valleyHiredPower ?? 0,
-            tempConfig.value.P2,
-            days,
-          ),
+        invoicePeriodEntry.P2 = this.calculatePowerPeriod(
+          invoiceConfiguration?.valleyHiredPower ?? 0,
+          tempConfig.value.P2,
+          initDate,
+          endDate,
         );
       }
 
-      if (temporalConfigurations.length > 1) {
-        concept.title += ` (${this.dayjsService.format(
-          initDate,
-          "L",
-        )} - ${this.dayjsService.format(endDate, "L")})`;
-      }
+      invoicePeriodEntry.value = this.sumValues(invoicePeriodEntry);
 
-      concept.value = this.sumConceptsValues(concept.subconcepts);
-
-      concepts.push(concept);
+      invoiceRangedEntry.ranges.push(invoicePeriodEntry);
+      invoiceRangedEntry.value = this.sumValues([
+        invoiceRangedEntry,
+        invoicePeriodEntry,
+      ]);
     });
 
-    return concepts;
+    return invoiceRangedEntry;
   }
 
-  calculatePowerCostsSubconceptsByValue(
+  calculatePowerCostsByValue(
     config: TemporalConfigurationValue[] | undefined,
-    title: string,
     range: Defined<RangeSelectorForm>,
     hiredPower: number,
-  ): InvoiceConcept[] {
-    const concepts: InvoiceConcept[] = [];
+  ): InvoiceRangedEntry<InvoiceEntry> {
+    const invoiceRangedEntry: InvoiceRangedEntry<InvoiceEntry> = {
+      initDate: range.initDate,
+      endDate: range.endDate,
+      ranges: [],
+    };
 
     const temporalConfigurations = this.getAppliedTemporalConfiguration(
       config,
@@ -123,35 +125,30 @@ export class InvoiceDetailService {
           ? validUntil
           : range.endDate;
 
-      const days = endDate.diff(initDate, "day") + 1;
-
-      const concept = this.calculatePowerPeriodSubconcept(
-        title,
+      const entry = this.calculatePowerPeriod(
         hiredPower,
         tempConfig.value,
-        days,
+        initDate,
+        endDate,
       );
 
-      if (temporalConfigurations.length > 1) {
-        concept.title += ` (${this.dayjsService.format(
-          initDate,
-          "L",
-        )} - ${this.dayjsService.format(endDate, "L")})`;
-      }
-
-      concepts.push(concept);
+      invoiceRangedEntry.ranges.push(entry);
+      invoiceRangedEntry.value = this.sumValues([invoiceRangedEntry, entry]);
     });
 
-    return concepts;
+    return invoiceRangedEntry;
   }
 
-  calculateEnergyCostsSubconceptsByPeriod(
+  calculateEnergyCostsByPeriod(
     config: TemporalPeriodConfiguration[] | undefined,
     consumptionByDay: Record<string, Record<Period, number>>,
-    title: string,
     range: Defined<RangeSelectorForm>,
-  ): InvoiceConcept[] {
-    const concepts: InvoiceConcept[] = [];
+  ): InvoiceRangedEntry<InvoicePeriodEntry> {
+    const invoiceRangedEntry: InvoiceRangedEntry<InvoicePeriodEntry> = {
+      initDate: range.initDate,
+      endDate: range.endDate,
+      ranges: [],
+    };
 
     const temporalConfigurations = this.getAppliedTemporalConfiguration(
       config,
@@ -171,9 +168,9 @@ export class InvoiceDetailService {
           ? validUntil
           : range.endDate;
 
-      const concept: InvoiceConcept = {
-        title: title,
-        subconcepts: [],
+      const invoicePeriodEntry: InvoicePeriodEntry = {
+        initDate: initDate,
+        endDate: endDate,
       };
 
       const consumptionInPeriod: Record<Period, number> = {
@@ -207,59 +204,53 @@ export class InvoiceDetailService {
       );
 
       if (tempConfig.value.P1) {
-        concept.subconcepts?.push(
-          this.calculateEnergyPeriodSubconcept(
-            $localize`:@@invoice-detail.energy-period.p1-peak:P1 (peak)`,
-            consumptionInPeriod.P1,
-            tempConfig.value.P1,
-          ),
+        invoicePeriodEntry.P1 = this.calculateEnergyPeriod(
+          consumptionInPeriod.P1,
+          tempConfig.value.P1,
+          initDate,
+          endDate,
         );
       }
 
       if (tempConfig.value.P2) {
-        concept.subconcepts?.push(
-          this.calculateEnergyPeriodSubconcept(
-            $localize`:@@invoice-detail.energy-period.p2-flat:P2 (flat)`,
-            consumptionInPeriod.P2,
-            tempConfig.value.P2,
-          ),
+        invoicePeriodEntry.P2 = this.calculateEnergyPeriod(
+          consumptionInPeriod.P2,
+          tempConfig.value.P2,
+          initDate,
+          endDate,
         );
       }
 
       if (tempConfig.value.P3) {
-        concept.subconcepts?.push(
-          this.calculateEnergyPeriodSubconcept(
-            $localize`:@@invoice-detail.energy-period.p3-valley:P3 (valley)`,
-            consumptionInPeriod.P3,
-            tempConfig.value.P3,
-          ),
+        invoicePeriodEntry.P3 = this.calculateEnergyPeriod(
+          consumptionInPeriod.P3,
+          tempConfig.value.P3,
+          initDate,
+          endDate,
         );
       }
 
-      if (temporalConfigurations.length > 1) {
-        concept.title += ` (${this.dayjsService.format(
-          initDate,
-          "L",
-        )} - ${this.dayjsService.format(endDate, "L")})`;
-      }
+      invoicePeriodEntry.value = this.sumValues(invoicePeriodEntry);
 
-      concept.value = this.sumConceptsValues(concept.subconcepts);
-
-      concepts.push(concept);
+      invoiceRangedEntry.ranges.push(invoicePeriodEntry);
+      invoiceRangedEntry.value = this.sumValues([
+        invoiceRangedEntry,
+        invoicePeriodEntry,
+      ]);
     });
 
-    return concepts;
+    return invoiceRangedEntry;
   }
 
-  calculateEnergyCostsSubconceptsByValue(
+  calculateEnergyCostsByValue(
     config: TemporalConfigurationValue[] | undefined,
     consumptionByDay: Record<string, Record<Period, number>>,
-    title: string,
     range: Defined<RangeSelectorForm>,
-  ): InvoiceConcept[] {
-    const concept: InvoiceConcept = {
-      title: title,
-      subconcepts: [],
+  ): InvoiceRangedEntry<InvoiceEntry> {
+    const invoiceRangedEntry: InvoiceRangedEntry<InvoiceEntry> = {
+      initDate: range.initDate,
+      endDate: range.endDate,
+      ranges: [],
     };
 
     const temporalConfigurations = this.getAppliedTemporalConfiguration(
@@ -302,45 +293,48 @@ export class InvoiceDetailService {
         0,
       );
 
-      concept.subconcepts?.push(
-        this.calculateEnergyPeriodSubconcept(
-          `${this.dayjsService.format(
-            initDate,
-            "L",
-          )} - ${this.dayjsService.format(endDate, "L")}`,
+      invoiceRangedEntry.ranges.push(
+        this.calculateEnergyPeriod(
           consumptionInPeriod,
           tempConfig.value,
+          initDate,
+          endDate,
         ),
       );
     });
 
-    concept.value = this.sumConceptsValues(concept.subconcepts);
+    invoiceRangedEntry.value = this.sumValues(invoiceRangedEntry.ranges);
 
-    if (concept.subconcepts?.length === 1) {
-      concept.calculationDetail = concept.subconcepts[0].calculationDetail;
-      concept.value = concept.subconcepts[0].value;
-      concept.subconcepts = concept.subconcepts[0].subconcepts;
-    }
-
-    return [concept];
+    return invoiceRangedEntry;
   }
 
-  calculatePercentageConcept(
-    baseConcepts: InvoiceConcept[],
-    title: string,
+  calculateSum(
+    concepts: (InvoicePeriodEntry | InvoiceEntry)[],
+    range: Defined<RangeSelectorForm>,
+  ): InvoiceEntry {
+    return {
+      initDate: range.initDate,
+      endDate: range.endDate,
+      value: this.sumValues(concepts),
+    };
+  }
+
+  calculatePercentage(
+    concepts: (InvoicePeriodEntry | InvoiceEntry)[],
     config: TemporalConfigurationValue[] | undefined,
     range: Defined<RangeSelectorForm>,
-  ): InvoiceConcept {
+  ): InvoiceEntry {
     const taxValue =
       this.getCurrentTemporalConfiguration(range, config)?.value ?? 0;
-    const baseValue = this.sumConceptsValues(baseConcepts) ?? 0;
+    const baseValue = this.sumValues(concepts) ?? 0;
 
     const value = this.numberUtilsService.roundNumber(
       baseValue * (taxValue / 100),
     );
 
     return {
-      title: title,
+      initDate: range.initDate,
+      endDate: range.endDate,
       calculationDetail: `${this.numberUtilsService.formatNumberWithUnit(
         baseValue,
         "€",
@@ -355,10 +349,9 @@ export class InvoiceDetailService {
   }
 
   calculateDailyCost(
-    title: string,
     range: Defined<RangeSelectorForm>,
     config: TemporalConfigurationValue[] | undefined,
-  ): InvoiceConcept {
+  ): InvoiceEntry {
     const dailyCost =
       this.getCurrentTemporalConfiguration(range, config)?.value ?? 0;
     const days = range.endDate.diff(range.initDate, "day") + 1;
@@ -366,7 +359,8 @@ export class InvoiceDetailService {
     const value = this.numberUtilsService.roundNumber(dailyCost * days);
 
     return {
-      title: title,
+      initDate: range.initDate,
+      endDate: range.endDate,
       calculationDetail: `${this.numberUtilsService.formatNumberWithUnit(
         dailyCost,
         "€/" + $localize`:@@invoice-detail.day:day`,
@@ -443,24 +437,42 @@ export class InvoiceDetailService {
     return consumptions;
   }
 
-  calculateSumConcept(
-    baseConcepts: InvoiceConcept[],
-    title: string,
-    type?: "total" | "subtotal",
-  ): InvoiceConcept {
-    return {
-      title: title,
-      type: type,
-      value: this.sumConceptsValues(baseConcepts),
-    };
+  sumValues(
+    entries:
+      | InvoicePeriodEntry
+      | InvoiceEntry
+      | (InvoicePeriodEntry | InvoiceEntry)[],
+  ): number | undefined {
+    const entriesArray = Array.isArray(entries) ? entries : [entries];
+
+    return entriesArray?.reduce(
+      (value, entry) =>
+        this.isInvoicePeriodEntry(entry)
+          ? (this.sumInvoicePeriodEntryValues(entry) ?? 0) + value
+          : entry?.value
+          ? value + entry.value
+          : value,
+      0,
+    );
   }
 
-  sumConceptsValues(
-    concepts: InvoiceConcept[] | undefined,
+  private sumInvoicePeriodEntryValues(
+    invoicePeriodEntry: InvoicePeriodEntry,
   ): number | undefined {
-    return concepts?.reduce(
-      (value, concept) => (concept.value ? value + concept.value : value),
-      0,
+    return [
+      invoicePeriodEntry?.P1,
+      invoicePeriodEntry?.P2,
+      invoicePeriodEntry?.P3,
+    ].reduce((value, entry) => (entry?.value ? value + entry.value : value), 0);
+  }
+
+  isInvoicePeriodEntry(
+    invoicePeriodEntry: InvoicePeriodEntry | InvoiceEntry,
+  ): invoicePeriodEntry is InvoicePeriodEntry {
+    return (
+      (invoicePeriodEntry as InvoicePeriodEntry).P1 !== undefined ||
+      (invoicePeriodEntry as InvoicePeriodEntry).P2 !== undefined ||
+      (invoicePeriodEntry as InvoicePeriodEntry).P3 !== undefined
     );
   }
 
@@ -503,14 +515,17 @@ export class InvoiceDetailService {
       : undefined;
   }
 
-  private calculatePowerPeriodSubconcept(
-    title: string,
+  private calculatePowerPeriod(
     hiredPower: number,
     cost: number,
-    days: number,
-  ): InvoiceConcept {
+    initDate: Dayjs,
+    endDate: Dayjs,
+  ): InvoiceEntry {
+    const days = endDate.diff(initDate, "day") + 1;
+
     return {
-      title: title,
+      initDate: initDate,
+      endDate: endDate,
       calculationDetail: `${this.numberUtilsService.formatNumberWithUnit(
         hiredPower,
         "kW",
@@ -526,13 +541,15 @@ export class InvoiceDetailService {
     };
   }
 
-  private calculateEnergyPeriodSubconcept(
-    title: string,
+  private calculateEnergyPeriod(
     consumption: number,
     cost: number,
-  ): InvoiceConcept {
+    initDate: Dayjs,
+    endDate: Dayjs,
+  ): InvoiceEntry {
     return {
-      title: title,
+      initDate: initDate,
+      endDate: endDate,
       calculationDetail: `${this.numberUtilsService.formatNumberWithUnit(
         consumption,
         "kWh",
@@ -548,5 +565,68 @@ export class InvoiceDetailService {
   private isHoliday(date: Dayjs, configuration: Configuration | null): boolean {
     const isoDate = this.dayjsService.format(date, DateFormats.ISO_LOCALDATE);
     return (configuration?.holidays?.indexOf(isoDate) ?? -1) >= 0;
+  }
+
+  private getDateRangeSuffix(initDate: Dayjs, endDate: Dayjs): string {
+    return ` (${this.dayjsService.format(
+      initDate,
+      "L",
+    )} - ${this.dayjsService.format(endDate, "L")})`;
+  }
+
+  buildInvoiceConcept(
+    title: string,
+    entry: InvoiceEntry | InvoicePeriodEntry,
+    list?: InvoicePeriodEntry[],
+    subconceptsTitles?: Partial<Record<Period, string>>,
+    type?: "total" | "subtotal",
+  ): InvoiceConcept {
+    const concept: InvoiceConcept = {
+      title: title,
+      value: entry.value,
+      type: type,
+    };
+
+    if (this.isInvoicePeriodEntry(entry)) {
+      concept.subconcepts = (<Period[]>["P1", "P2", "P3"]).reduce(
+        (subconcepts, key) => {
+          if (entry[key]) {
+            subconcepts.push(
+              this.buildInvoiceConcept(
+                subconceptsTitles && subconceptsTitles[key]
+                  ? <string>subconceptsTitles[key]
+                  : key,
+                <InvoiceEntry>entry[key],
+              ),
+            );
+          }
+          return subconcepts;
+        },
+        <InvoiceConcept[]>[],
+      );
+    } else {
+      concept.calculationDetail = entry.calculationDetail;
+    }
+
+    if (list && list.length > 1) {
+      concept.title += this.getDateRangeSuffix(entry.initDate, entry.endDate);
+    }
+
+    return concept;
+  }
+
+  get powerSubconceptsTitles(): Partial<Record<Period, string>> {
+    return {
+      P1: $localize`:@@invoice-detail.power-period.p1-peak:P1 (peak)`,
+      P2: $localize`:@@invoice-detail.power-period.p2-valley:P2 (valley)`,
+    };
+  }
+
+  get energySubconceptsTitles(): Partial<Record<Period, string>> {
+    return {
+      P1: $localize`:@@invoice-detail.energy-period.p1-peak:P1 (peak)`,
+      P2: $localize`:@@invoice-detail.energy-period.p2-flat:P2 (flat)`,
+      P3: $localize`:@@invoice-detail.energy-period.p3-valley:P3 (valley)`,
+    };
   }
 }

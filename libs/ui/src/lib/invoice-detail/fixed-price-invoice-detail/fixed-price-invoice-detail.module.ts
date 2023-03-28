@@ -5,6 +5,8 @@ import { MaterialModule } from "@detalluz/material";
 import { InvoiceConfigurationModule } from "../../invoice-configuration/invoice-configuration.module";
 import { InvoiceDetailModule } from "../invoice-detail.module";
 
+export * from "./fixed-price-invoice-detail.model";
+
 @NgModule({
   declarations: [FixedPriceInvoiceDetailComponent],
   imports: [

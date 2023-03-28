@@ -1,11 +1,22 @@
-import { Component, Input, OnChanges } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from "@angular/core";
 import { LocalizeFn } from "@angular/localize/init";
 import { Prices, Consumption, Configuration, Charges } from "@detalluz/api";
 import { Defined, NumberUtilsService } from "@detalluz/shared";
 import { InvoiceConfiguration } from "../../invoice-configuration/invoice-configuration.component";
-import { InvoiceConcept } from "../invoice-detail.module";
 import { RangeSelectorForm } from "../../range-selector/range-selector.component";
 import { InvoiceDetailService } from "../invoice-detail.service";
+import {
+  PVPCEnergyCosts,
+  PVPCInvoice,
+  PVPCPowerCosts,
+} from "./pvpc-invoice-detail.model";
+import { InvoiceConcept, InvoiceEntry } from "../invoice-detail.model";
 
 declare const $localize: LocalizeFn;
 
@@ -26,6 +37,8 @@ export class PvpcInvoiceDetailComponent implements OnChanges {
   @Input() consumption: Consumption | null = null;
 
   @Input() configuration: Configuration | null = null;
+
+  @Output() invoice = new EventEmitter<PVPCInvoice>();
 
   concepts: InvoiceConcept[] | null = null;
 
@@ -60,154 +73,130 @@ export class PvpcInvoiceDetailComponent implements OnChanges {
       endDate: this.range.endDate,
     };
 
-    this.updateConcepts();
+    this.calculateInvoice();
   }
 
-  private updateConcepts() {
-    const powerCosts: InvoiceConcept = this.calculatePowerCosts();
-
-    const energyCosts: InvoiceConcept = this.calculateEnergyCosts();
-
-    const electricityTax: InvoiceConcept =
-      this.invoiceDetailService.calculatePercentageConcept(
-        [powerCosts, energyCosts],
-        $localize`:@@pvpc-invoice-detail.electricity-tax:Electricity tax`,
-        this.configuration?.electricityTax,
-        this.calculatedRange,
-      );
-
-    const subtotal: InvoiceConcept =
-      this.invoiceDetailService.calculateSumConcept(
-        [powerCosts, energyCosts, electricityTax],
-        $localize`:@@pvpc-invoice-detail.subtotal:Subtotal`,
-        "subtotal",
-      );
-
-    const meterRental: InvoiceConcept =
-      this.invoiceDetailService.calculateDailyCost(
-        $localize`:@@pvpc-invoice-detail.meter-rental:Meter rental`,
-        this.calculatedRange,
-        this.configuration?.meterRental,
-      );
-
-    const total: InvoiceConcept = this.invoiceDetailService.calculateSumConcept(
+  private calculateInvoice(): void {
+    const powerCosts = this.calculatePowerCosts();
+    const energyCosts = this.calculateEnergyCosts();
+    const electricityTax = this.invoiceDetailService.calculatePercentage(
+      [powerCosts, energyCosts],
+      this.configuration?.electricityTax,
+      this.calculatedRange,
+    );
+    const subtotal = this.invoiceDetailService.calculateSum(
+      [powerCosts, energyCosts, electricityTax],
+      this.calculatedRange,
+    );
+    const meterRental = this.invoiceDetailService.calculateDailyCost(
+      this.calculatedRange,
+      this.configuration?.meterRental,
+    );
+    const total = this.invoiceDetailService.calculateSum(
       [subtotal, meterRental],
-      $localize`:@@pvpc-invoice-detail.total-amount:Total amount`,
-      "subtotal",
+      this.calculatedRange,
+    );
+    const vat = this.invoiceDetailService.calculatePercentage(
+      [total],
+      this.configuration?.vat,
+      this.calculatedRange,
     );
 
-    const vat: InvoiceConcept =
-      this.invoiceDetailService.calculatePercentageConcept(
-        [total],
-        $localize`:@@pvpc-invoice-detail.vat:VAT`,
-        this.configuration?.vat,
-        this.calculatedRange,
-      );
+    const invoice: PVPCInvoice = {
+      initDate: this.calculatedRange.initDate,
+      endDate: this.calculatedRange.endDate,
+      value: this.invoiceDetailService.sumValues([
+        powerCosts,
+        energyCosts,
+        electricityTax,
+        meterRental,
+        vat,
+      ]),
 
-    const invoiceTotalAmount: InvoiceConcept =
-      this.invoiceDetailService.calculateSumConcept(
-        [total, vat],
-        $localize`:@@pvpc-invoice-detail.invoice-total-amount:Invoice total amount`,
-        "total",
-      );
-
-    this.concepts = [
-      powerCosts,
-      energyCosts,
-      electricityTax,
-      subtotal,
-      meterRental,
-      total,
-      vat,
-      invoiceTotalAmount,
-    ];
-  }
-
-  private calculatePowerCosts(): InvoiceConcept {
-    const concept: InvoiceConcept = {
-      title: $localize`:@@pvpc-invoice-detail.power-costs:Power costs`,
-      subconcepts: [],
+      powerCosts: powerCosts,
+      energyCosts: energyCosts,
+      electricityTax: electricityTax,
+      subtotal: subtotal,
+      meterRental: meterRental,
+      total: total,
+      vat: vat,
     };
 
-    concept.subconcepts = concept.subconcepts?.concat(
-      this.invoiceDetailService.calculatePowerCostsSubconceptsByPeriod(
+    this.updateConcepts(invoice);
+    this.invoice.emit(invoice);
+  }
+
+  private calculatePowerCosts(): PVPCPowerCosts {
+    const powerCosts: PVPCPowerCosts = {
+      initDate: this.calculatedRange.initDate,
+      endDate: this.calculatedRange.endDate,
+
+      distributionTolls: this.invoiceDetailService.calculatePowerCostsByPeriod(
         this.configuration?.powerCosts.distributionTolls,
-        $localize`:@@pvpc-invoice-detail.power-distribution-tolls:Distribution tolls`,
         this.calculatedRange,
         this.invoiceConfiguration,
       ),
-    );
-    concept.subconcepts = concept.subconcepts?.concat(
-      this.invoiceDetailService.calculatePowerCostsSubconceptsByPeriod(
+      charges: this.invoiceDetailService.calculatePowerCostsByPeriod(
         this.configuration?.powerCosts.charges,
-        $localize`:@@pvpc-invoice-detail.power-charges:Power charges`,
         this.calculatedRange,
         this.invoiceConfiguration,
       ),
-    );
-    concept.subconcepts = concept.subconcepts?.concat(
-      this.invoiceDetailService.calculatePowerCostsSubconceptsByValue(
+      marketingMargin: this.invoiceDetailService.calculatePowerCostsByValue(
         this.configuration?.marketingMargin,
-        $localize`:@@pvpc-invoice-detail.marketing-margin:Marketing margin`,
         this.calculatedRange,
         Math.max(
           this.invoiceConfiguration?.peakHiredPower ?? 0,
           this.invoiceConfiguration?.valleyHiredPower ?? 0,
         ),
       ),
-    );
-
-    concept.value = this.invoiceDetailService.sumConceptsValues(
-      concept.subconcepts,
-    );
-
-    return concept;
-  }
-
-  private calculateEnergyCosts(): InvoiceConcept {
-    const concept: InvoiceConcept = {
-      title: $localize`:@@pvpc-invoice-detail.energy-costs:Energy costs`,
-      subconcepts: [],
     };
 
+    powerCosts.value = this.invoiceDetailService.sumValues([
+      powerCosts.distributionTolls,
+      powerCosts.charges,
+      powerCosts.marketingMargin,
+    ]);
+
+    return powerCosts;
+  }
+
+  private calculateEnergyCosts(): PVPCEnergyCosts {
     const periodConsumptionByDay =
       this.invoiceDetailService.calculateConsumptionByDay(
         this.consumption,
         this.configuration,
       );
 
-    concept.subconcepts = concept.subconcepts?.concat(
-      this.invoiceDetailService.calculateEnergyCostsSubconceptsByPeriod(
+    const energyCosts: PVPCEnergyCosts = {
+      initDate: this.calculatedRange.initDate,
+      endDate: this.calculatedRange.endDate,
+
+      tolls: this.invoiceDetailService.calculateEnergyCostsByPeriod(
         this.configuration?.energyCosts.tolls,
         periodConsumptionByDay,
-        $localize`:@@pvpc-invoice-detail.energy-tolls:Transport tolls and energy distribution`,
         this.calculatedRange,
       ),
-    );
-    concept.subconcepts = concept.subconcepts?.concat(
-      this.invoiceDetailService.calculateEnergyCostsSubconceptsByPeriod(
+      charges: this.invoiceDetailService.calculateEnergyCostsByPeriod(
         this.configuration?.energyCosts.charges,
         periodConsumptionByDay,
-        $localize`:@@pvpc-invoice-detail.energy-charges:Energy charges`,
         this.calculatedRange,
       ),
-    );
-    concept.subconcepts?.push(
-      this.calculateConsumedEnergyCostSubconcept(
-        $localize`:@@pvpc-invoice-detail.consumed-energy-cost:Consumed energy cost`,
-      ),
-    );
+      consumedEnergy: this.calculateConsumedEnergyCost(),
+    };
 
-    concept.value = this.invoiceDetailService.sumConceptsValues(
-      concept.subconcepts,
-    );
+    energyCosts.value = this.invoiceDetailService.sumValues([
+      energyCosts.tolls,
+      energyCosts.charges,
+      energyCosts.consumedEnergy,
+    ]);
 
-    return concept;
+    return energyCosts;
   }
 
-  private calculateConsumedEnergyCostSubconcept(title: string): InvoiceConcept {
-    const concept: InvoiceConcept = {
-      title: title,
+  private calculateConsumedEnergyCost(): InvoiceEntry {
+    const entry: InvoiceEntry = {
+      initDate: this.calculatedRange.initDate,
+      endDate: this.calculatedRange.endDate,
     };
     let cost = 0;
 
@@ -226,7 +215,154 @@ export class PvpcInvoiceDetailComponent implements OnChanges {
       }
     });
 
-    concept.value = this.numberUtilsService.roundNumber(cost);
+    entry.value = this.numberUtilsService.roundNumber(cost);
+
+    return entry;
+  }
+
+  private updateConcepts(invoice: PVPCInvoice) {
+    const powerCosts: InvoiceConcept = this.calculatePowerCostsConcept(invoice);
+
+    const energyCosts: InvoiceConcept =
+      this.calculateEnergyCostsConcept(invoice);
+
+    const electricityTax: InvoiceConcept =
+      this.invoiceDetailService.buildInvoiceConcept(
+        $localize`:@@pvpc-invoice-detail.electricity-tax:Electricity tax`,
+        invoice.electricityTax,
+      );
+
+    const subtotal: InvoiceConcept =
+      this.invoiceDetailService.buildInvoiceConcept(
+        $localize`:@@pvpc-invoice-detail.subtotal:Subtotal`,
+        invoice.subtotal,
+        undefined,
+        undefined,
+        "subtotal",
+      );
+
+    const meterRental: InvoiceConcept =
+      this.invoiceDetailService.buildInvoiceConcept(
+        $localize`:@@pvpc-invoice-detail.meter-rental:Meter rental`,
+        invoice.meterRental,
+      );
+
+    const total: InvoiceConcept = this.invoiceDetailService.buildInvoiceConcept(
+      $localize`:@@pvpc-invoice-detail.total-amount:Total amount`,
+      invoice.total,
+      undefined,
+      undefined,
+      "subtotal",
+    );
+
+    const vat: InvoiceConcept = this.invoiceDetailService.buildInvoiceConcept(
+      $localize`:@@pvpc-invoice-detail.vat:VAT`,
+      invoice.vat,
+    );
+
+    const invoiceTotalAmount: InvoiceConcept =
+      this.invoiceDetailService.buildInvoiceConcept(
+        $localize`:@@pvpc-invoice-detail.invoice-total-amount:Invoice total amount`,
+        invoice,
+        undefined,
+        undefined,
+        "total",
+      );
+
+    this.concepts = [
+      powerCosts,
+      energyCosts,
+      electricityTax,
+      subtotal,
+      meterRental,
+      total,
+      vat,
+      invoiceTotalAmount,
+    ];
+  }
+
+  private calculatePowerCostsConcept(invoice: PVPCInvoice): InvoiceConcept {
+    const concept: InvoiceConcept = {
+      title: $localize`:@@pvpc-invoice-detail.power-costs:Power costs`,
+      value: invoice.powerCosts.value,
+      subconcepts: [],
+    };
+
+    concept.subconcepts = concept.subconcepts?.concat(
+      invoice.powerCosts.distributionTolls.ranges.map(
+        (invoicePeriodEntry, index, array) =>
+          this.invoiceDetailService.buildInvoiceConcept(
+            $localize`:@@pvpc-invoice-detail.power-distribution-tolls:Distribution tolls`,
+            invoicePeriodEntry,
+            array,
+            this.invoiceDetailService.powerSubconceptsTitles,
+          ),
+      ),
+    );
+
+    concept.subconcepts = concept.subconcepts?.concat(
+      invoice.powerCosts.charges.ranges.map(
+        (invoicePeriodEntry, index, array) =>
+          this.invoiceDetailService.buildInvoiceConcept(
+            $localize`:@@pvpc-invoice-detail.power-charges:Power charges`,
+            invoicePeriodEntry,
+            array,
+            this.invoiceDetailService.powerSubconceptsTitles,
+          ),
+      ),
+    );
+
+    concept.subconcepts = concept.subconcepts?.concat(
+      invoice.powerCosts.marketingMargin.ranges.map((entry, index, array) =>
+        this.invoiceDetailService.buildInvoiceConcept(
+          $localize`:@@pvpc-invoice-detail.marketing-margin:Marketing margin`,
+          entry,
+          array,
+        ),
+      ),
+    );
+
+    return concept;
+  }
+
+  private calculateEnergyCostsConcept(invoice: PVPCInvoice): InvoiceConcept {
+    const concept: InvoiceConcept = {
+      title: $localize`:@@pvpc-invoice-detail.energy-costs:Energy costs`,
+      value: invoice.energyCosts.value,
+      subconcepts: [],
+    };
+
+    concept.subconcepts = concept.subconcepts?.concat(
+      invoice.energyCosts.tolls.ranges.map((invoicePeriodEntry, index, array) =>
+        this.invoiceDetailService.buildInvoiceConcept(
+          $localize`:@@pvpc-invoice-detail.energy-tolls:Transport tolls and energy distribution`,
+          invoicePeriodEntry,
+          array,
+          this.invoiceDetailService.energySubconceptsTitles,
+        ),
+      ),
+    );
+
+    concept.subconcepts = concept.subconcepts?.concat(
+      invoice.energyCosts.charges.ranges.map(
+        (invoicePeriodEntry, index, array) =>
+          this.invoiceDetailService.buildInvoiceConcept(
+            $localize`:@@pvpc-invoice-detail.energy-charges:Energy charges`,
+            invoicePeriodEntry,
+            array,
+            this.invoiceDetailService.energySubconceptsTitles,
+          ),
+      ),
+    );
+
+    concept.subconcepts = concept.subconcepts?.concat(
+      [invoice.energyCosts.consumedEnergy].map((entry) =>
+        this.invoiceDetailService.buildInvoiceConcept(
+          $localize`:@@pvpc-invoice-detail.consumed-energy-cost:Consumed energy cost`,
+          entry,
+        ),
+      ),
+    );
 
     return concept;
   }

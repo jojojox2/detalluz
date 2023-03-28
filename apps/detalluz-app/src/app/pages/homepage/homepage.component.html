@@ -34,11 +34,15 @@
   [autoSearch]="true"
 ></dtl-range-selector>
 
-<ng-container *ngIf="prices && prices.prices && prices.prices.length > 0">
+<mat-card
+  *ngIf="prices && prices.prices && prices.prices.length > 0"
+  class="table-card mat-elevation-z8"
+>
   <dtl-datetime-values-table
     [values]="prices.prices"
     [unit]="prices.unit"
     totalDisplay="mean"
     [footer]="true"
+    [totalUnit]="!mobile"
   ></dtl-datetime-values-table>
-</ng-container>
+</mat-card>

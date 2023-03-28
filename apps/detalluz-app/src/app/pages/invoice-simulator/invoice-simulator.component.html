@@ -12,68 +12,76 @@
     [(data)]="invoiceConfiguration"
   ></dtl-invoice-configuration>
 
-  <div class="invoice-detail">
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-      <mat-tab label="PVPC" i18n-label="@@invoice-simulator.tabs.pvpc">
-        <dtl-pvpc-invoice-detail
-          [range]="range"
-          [invoiceConfiguration]="invoiceConfiguration"
-          [configuration]="configuration"
-          [prices]="prices"
-          [charges]="charges"
-          [consumption]="consumption"
-        ></dtl-pvpc-invoice-detail>
-      </mat-tab>
-      <mat-tab
-        label="Fixed price"
-        i18n-label="@@invoice-simulator.tabs.fixed-price"
+  <ng-container *ngIf="configuration && prices && charges && consumption">
+    <div class="invoice-detail">
+      <dtl-pvpc-invoice-detail
+        [range]="range"
+        [invoiceConfiguration]="invoiceConfiguration"
+        [configuration]="configuration"
+        [prices]="prices"
+        [charges]="charges"
+        [consumption]="consumption"
+      ></dtl-pvpc-invoice-detail>
+    </div>
+
+    <p i18n="@@invoice-simulator.check-hourly-details">
+      You can also check the hourly detailed consumption and PVPC electricity
+      price:
+    </p>
+
+    <mat-accordion multi>
+      <mat-expansion-panel
+        expanded="false"
+        *ngIf="isAuthenticated"
+        (opened)="consumptionPanelOpened = true"
+        (closed)="consumptionPanelOpened = false"
       >
-        <dtl-fixed-price-invoice-detail
-          [range]="range"
-          [invoiceConfiguration]="invoiceConfiguration"
-          [configuration]="configuration"
-          [consumption]="consumption"
-        ></dtl-fixed-price-invoice-detail>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <ng-container i18n="@@invoice-simulator.panels.consumption">
+              Consumption
+            </ng-container>
+            <ng-container *ngIf="consumptionPanelOpened && consumption.unit">
+              ({{consumption.unit}})
+            </ng-container>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <dtl-datetime-values-table
+          [values]="consumption.consumption"
+          [unit]="consumption.unit"
+          totalDisplay="sum"
+          valueFormat="1.0-2"
+          valueTooltipFormat="1.0-5"
+          [footer]="true"
+          [totalUnit]="!mobile"
+        ></dtl-datetime-values-table>
+      </mat-expansion-panel>
 
-  <p i18n="@@invoice-simulator.check-hourly-details">
-    You can also check the hourly detailed consumption and PVPC electricity
-    price:
-  </p>
-
-  <mat-accordion multi>
-    <mat-expansion-panel expanded="false" *ngIf="isAuthenticated">
-      <mat-expansion-panel-header>
-        <mat-panel-title i18n="@@invoice-simulator.panels.consumption">
-          Consumption
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <dtl-datetime-values-table
-        [values]="consumption?.consumption"
-        [unit]="consumption?.unit"
-        totalDisplay="sum"
-        valueFormat="1.0-2"
-        valueTooltipFormat="1.0-5"
-        [footer]="true"
-      ></dtl-datetime-values-table>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel expanded="false">
-      <mat-expansion-panel-header>
-        <mat-panel-title i18n="@@invoice-simulator.panels.prices">
-          Prices
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <dtl-datetime-values-table
-        [values]="prices?.prices"
-        [unit]="prices?.unit"
-        totalDisplay="mean"
-        [footer]="true"
-      ></dtl-datetime-values-table>
-    </mat-expansion-panel>
-  </mat-accordion>
+      <mat-expansion-panel
+        expanded="false"
+        (opened)="pricesPanelOpened = true"
+        (closed)="pricesPanelOpened = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <ng-container i18n="@@invoice-simulator.panels.prices">
+              Prices
+            </ng-container>
+            <ng-container *ngIf="pricesPanelOpened && prices.unit">
+              ({{prices.unit}})
+            </ng-container>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <dtl-datetime-values-table
+          [values]="prices.prices"
+          [unit]="prices.unit"
+          totalDisplay="mean"
+          [footer]="true"
+          [totalUnit]="!mobile"
+        ></dtl-datetime-values-table>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
 </ng-container>
 
 <ng-template #unauthenticatedInvoiceDetail>

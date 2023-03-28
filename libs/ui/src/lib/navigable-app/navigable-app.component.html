@@ -11,7 +11,7 @@
   <mat-sidenav
     [(opened)]="showMenus() && sidenavOpened"
     class="sidenav"
-    mode="side"
+    [mode]="mobile ? 'over' : 'side'"
   >
     <dtl-sidenav [items]="menuItems"></dtl-sidenav>
   </mat-sidenav>

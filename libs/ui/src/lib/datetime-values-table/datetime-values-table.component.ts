@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { DateFormats, DayjsService } from "@detalluz/shared";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 
 export interface DatetimeValue {
   date: string;
@@ -46,6 +48,7 @@ interface ValuesRanges {
 
 type TotalDisplay = "none" | "sum" | "mean";
 
+@UntilDestroy()
 @Component({
   selector: "dtl-datetime-values-table",
   templateUrl: "./datetime-values-table.component.html",
@@ -57,8 +60,10 @@ export class DatetimeValuesTableComponent implements OnInit, OnChanges {
 
   @Input() invertColors = false;
   @Input() totalDisplay: TotalDisplay = "none";
+  @Input() totalUnit = true;
   @Input() footer = false;
   @Input() dateFormat = "EEE dd MMM YY";
+  @Input() shortDateFormat = "dd/MM";
   @Input() longDateFormat = "EEEE dd MMMM YYYY";
   @Input() valueFormat = "1.2-2";
   @Input() valueTooltipFormat = "1.2-5";
@@ -72,7 +77,19 @@ export class DatetimeValuesTableComponent implements OnInit, OnChanges {
   private ranges: ValuesRanges = this.cleanRanges();
   total: TotalValues = this.cleanTotals();
 
-  constructor(private dayjsService: DayjsService) {}
+  mobile = false;
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private dayjsService: DayjsService,
+  ) {
+    this.breakpointObserver
+      .observe([Breakpoints.XSmall])
+      .pipe(untilDestroyed(this))
+      .subscribe((result) => {
+        this.mobile = result.matches;
+      });
+  }
 
   ngOnInit(): void {
     this.updateTable();
@@ -314,5 +331,10 @@ export class DatetimeValuesTableComponent implements OnInit, OnChanges {
     const alpha = 0.75;
 
     return `hsl(${hue}, ${saturation}, ${lightness}, ${alpha})`;
+  }
+
+  isWeekend(date: string): boolean {
+    const dayjsDate = this.dayjsService.new(date);
+    return dayjsDate?.day() === 0 || dayjsDate?.day() === 6;
   }
 }

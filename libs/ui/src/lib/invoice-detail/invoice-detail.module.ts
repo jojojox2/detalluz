@@ -3,7 +3,7 @@ import { CommonModule, DecimalPipe } from "@angular/common";
 import { InvoiceDetailComponent } from "./invoice-detail.component";
 import { MaterialModule } from "@detalluz/material";
 
-export { InvoiceConcept } from "./invoice-detail.component";
+export * from "./invoice-detail.model";
 
 @NgModule({
   declarations: [InvoiceDetailComponent],

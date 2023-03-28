@@ -4,10 +4,8 @@ import { MaterialModule } from "@detalluz/material";
 import dayjs from "dayjs";
 import { RangeSelectorForm } from "../range-selector/range-selector.component";
 
-import {
-  InvoiceConcept,
-  InvoiceDetailComponent,
-} from "./invoice-detail.component";
+import { InvoiceDetailComponent } from "./invoice-detail.component";
+import { InvoiceConcept } from "./invoice-detail.model";
 
 describe("InvoiceDetailComponent", () => {
   let component: InvoiceDetailComponent;

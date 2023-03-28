@@ -1,9 +1,13 @@
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Router } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { RouterLinkTyped } from "@detalluz/shared";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+import { filter } from "rxjs";
 import { SidenavItem } from "../sidenav/sidenav.component";
 import { Language } from "../toolbar/toolbar.component";
 
+@UntilDestroy()
 @Component({
   selector: "dtl-navigable-app",
   templateUrl: "./navigable-app.component.html",
@@ -23,7 +27,29 @@ export class NavigableAppComponent {
 
   @Input() loginLink: RouterLinkTyped = null;
 
-  constructor(private router: Router) {}
+  mobile = false;
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private router: Router,
+  ) {
+    this.breakpointObserver
+      .observe([Breakpoints.XSmall])
+      .pipe(untilDestroyed(this))
+      .subscribe((result) => {
+        this.mobile = result.matches;
+      });
+    this.router.events
+      .pipe(
+        untilDestroyed(this),
+        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+      )
+      .subscribe(() => {
+        if (this.mobile) {
+          this.sidenavOpened = false;
+        }
+      });
+  }
 
   showMenus(): boolean {
     return !this.hiddenToolbarUrls.includes(this.router.url);

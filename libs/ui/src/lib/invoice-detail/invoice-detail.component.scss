@@ -1,5 +1,14 @@
 @use "app.theme" as theme;
 
+.mat-mdc-card-title, .mat-mdc-card-subtitle {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.mat-mdc-card-title {
+  padding-top: 10px;
+}
+
 .invoice-tree ul, .invoice-tree li {
   margin-top: 0px;
   margin-bottom: 0px;

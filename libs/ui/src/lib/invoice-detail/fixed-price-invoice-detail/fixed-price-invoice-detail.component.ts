@@ -1,11 +1,22 @@
-import { Component, Input, OnChanges } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from "@angular/core";
 import { LocalizeFn } from "@angular/localize/init";
 import { Consumption, Configuration } from "@detalluz/api";
 import { Defined } from "@detalluz/shared";
 import { InvoiceConfiguration } from "../../invoice-configuration/invoice-configuration.component";
 import { RangeSelectorForm } from "../../range-selector/range-selector.component";
-import { InvoiceConcept } from "../invoice-detail.component";
+import { InvoiceConcept } from "../invoice-detail.model";
 import { InvoiceDetailService } from "../invoice-detail.service";
+import {
+  FixedPriceEnergyCosts,
+  FixedPriceInvoice,
+  FixedPricePowerCosts,
+} from "./fixed-price-invoice-detail.model";
 
 declare const $localize: LocalizeFn;
 
@@ -22,6 +33,8 @@ export class FixedPriceInvoiceDetailComponent implements OnChanges {
   @Input() consumption: Consumption | null = null;
 
   @Input() configuration: Configuration | null = null;
+
+  @Output() invoice = new EventEmitter<FixedPriceInvoice>();
 
   concepts: InvoiceConcept[] | null = null;
 
@@ -49,46 +62,143 @@ export class FixedPriceInvoiceDetailComponent implements OnChanges {
       endDate: this.range.endDate,
     };
 
-    this.updateConcepts();
+    this.calculateInvoice();
   }
 
-  private updateConcepts() {
-    const powerCosts: InvoiceConcept = this.calculatePowerCosts();
+  private calculateInvoice(): void {
+    const powerCosts = this.calculatePowerCosts();
+    const energyCosts = this.calculateEnergyCosts();
+    const subtotal = this.invoiceDetailService.calculateSum(
+      [powerCosts, energyCosts],
+      this.calculatedRange,
+    );
+    const meterRental = this.invoiceDetailService.calculateDailyCost(
+      this.calculatedRange,
+      this.configuration?.meterRental,
+    );
+    const total = this.invoiceDetailService.calculateSum(
+      [subtotal, meterRental],
+      this.calculatedRange,
+    );
+    const vat = this.invoiceDetailService.calculatePercentage(
+      [total],
+      this.configuration?.vat,
+      this.calculatedRange,
+    );
 
-    const energyCosts: InvoiceConcept = this.calculateEnergyCosts();
+    const invoice: FixedPriceInvoice = {
+      initDate: this.calculatedRange.initDate,
+      endDate: this.calculatedRange.endDate,
+      value: this.invoiceDetailService.sumValues([
+        powerCosts,
+        energyCosts,
+        meterRental,
+        vat,
+      ]),
+
+      powerCosts: powerCosts,
+      energyCosts: energyCosts,
+      subtotal: subtotal,
+      meterRental: meterRental,
+      total: total,
+      vat: vat,
+    };
+
+    this.updateConcepts(invoice);
+    this.invoice.emit(invoice);
+  }
+
+  private calculatePowerCosts(): FixedPricePowerCosts {
+    const powerCosts: FixedPricePowerCosts = {
+      initDate: this.calculatedRange.initDate,
+      endDate: this.calculatedRange.endDate,
+
+      hiredPower: this.invoiceDetailService.calculatePowerCostsByPeriod(
+        this.configuration?.fixedPrice?.powerCosts,
+        this.calculatedRange,
+        this.invoiceConfiguration,
+      ),
+    };
+
+    powerCosts.value = this.invoiceDetailService.sumValues([
+      powerCosts.hiredPower,
+    ]);
+
+    return powerCosts;
+  }
+
+  private calculateEnergyCosts(): FixedPriceEnergyCosts {
+    const periodConsumptionByDay =
+      this.invoiceDetailService.calculateConsumptionByDay(
+        this.consumption,
+        this.configuration,
+      );
+
+    const energyCosts: FixedPriceEnergyCosts = {
+      initDate: this.calculatedRange.initDate,
+      endDate: this.calculatedRange.endDate,
+
+      consumedEnergy: this.invoiceDetailService.calculateEnergyCostsByValue(
+        this.configuration?.fixedPrice?.energyCosts,
+        periodConsumptionByDay,
+        this.calculatedRange,
+      ),
+      communityElectricityTax:
+        this.invoiceDetailService.calculateEnergyCostsByValue(
+          this.configuration?.communityElectricityTax,
+          periodConsumptionByDay,
+          this.calculatedRange,
+        ),
+    };
+
+    energyCosts.value = this.invoiceDetailService.sumValues([
+      energyCosts.consumedEnergy,
+      energyCosts.communityElectricityTax,
+    ]);
+
+    return energyCosts;
+  }
+
+  private updateConcepts(invoice: FixedPriceInvoice) {
+    const powerCosts: InvoiceConcept = this.calculatePowerCostsConcept(invoice);
+
+    const energyCosts: InvoiceConcept =
+      this.calculateEnergyCostsConcept(invoice);
 
     const subtotal: InvoiceConcept =
-      this.invoiceDetailService.calculateSumConcept(
-        [powerCosts, energyCosts],
+      this.invoiceDetailService.buildInvoiceConcept(
         $localize`:@@fixed-price-invoice-detail.subtotal:Subtotal`,
+        invoice.subtotal,
+        undefined,
+        undefined,
         "subtotal",
       );
 
     const meterRental: InvoiceConcept =
-      this.invoiceDetailService.calculateDailyCost(
+      this.invoiceDetailService.buildInvoiceConcept(
         $localize`:@@fixed-price-invoice-detail.meter-rental:Meter rental`,
-        this.calculatedRange,
-        this.configuration?.meterRental,
+        invoice.meterRental,
       );
 
-    const total: InvoiceConcept = this.invoiceDetailService.calculateSumConcept(
-      [subtotal, meterRental],
+    const total: InvoiceConcept = this.invoiceDetailService.buildInvoiceConcept(
       $localize`:@@fixed-price-invoice-detail.total-amount:Total amount`,
+      invoice.total,
+      undefined,
+      undefined,
       "subtotal",
     );
 
-    const vat: InvoiceConcept =
-      this.invoiceDetailService.calculatePercentageConcept(
-        [total],
-        $localize`:@@fixed-price-invoice-detail.vat:VAT`,
-        this.configuration?.vat,
-        this.calculatedRange,
-      );
+    const vat: InvoiceConcept = this.invoiceDetailService.buildInvoiceConcept(
+      $localize`:@@fixed-price-invoice-detail.vat:VAT`,
+      invoice.vat,
+    );
 
     const invoiceTotalAmount: InvoiceConcept =
-      this.invoiceDetailService.calculateSumConcept(
-        [total, vat],
+      this.invoiceDetailService.buildInvoiceConcept(
         $localize`:@@fixed-price-invoice-detail.invoice-total-amount:Invoice total amount`,
+        invoice,
+        undefined,
+        undefined,
         "total",
       );
 
@@ -103,60 +213,59 @@ export class FixedPriceInvoiceDetailComponent implements OnChanges {
     ];
   }
 
-  private calculatePowerCosts(): InvoiceConcept {
+  private calculatePowerCostsConcept(
+    invoice: FixedPriceInvoice,
+  ): InvoiceConcept {
     const concept: InvoiceConcept = {
       title: $localize`:@@fixed-price-invoice-detail.power-costs:Power costs`,
+      value: invoice.powerCosts.value,
       subconcepts: [],
     };
 
     concept.subconcepts = concept.subconcepts?.concat(
-      this.invoiceDetailService.calculatePowerCostsSubconceptsByPeriod(
-        this.configuration?.fixedPrice?.powerCosts,
-        $localize`:@@fixed-price-invoice-detail.hired-power-amount:Amount for hired power`,
-        this.calculatedRange,
-        this.invoiceConfiguration,
+      invoice.powerCosts.hiredPower.ranges.map(
+        (invoicePeriodEntry, index, array) =>
+          this.invoiceDetailService.buildInvoiceConcept(
+            $localize`:@@fixed-price-invoice-detail.hired-power-amount:Amount for hired power`,
+            invoicePeriodEntry,
+            array,
+            this.invoiceDetailService.powerSubconceptsTitles,
+          ),
       ),
-    );
-
-    concept.value = this.invoiceDetailService.sumConceptsValues(
-      concept.subconcepts,
     );
 
     return concept;
   }
 
-  private calculateEnergyCosts(): InvoiceConcept {
+  private calculateEnergyCostsConcept(
+    invoice: FixedPriceInvoice,
+  ): InvoiceConcept {
     const concept: InvoiceConcept = {
       title: $localize`:@@fixed-price-invoice-detail.energy-costs:Energy costs`,
+      value: invoice.energyCosts.value,
       subconcepts: [],
     };
 
-    const periodConsumptionByDay =
-      this.invoiceDetailService.calculateConsumptionByDay(
-        this.consumption,
-        this.configuration,
-      );
-
     concept.subconcepts = concept.subconcepts?.concat(
-      this.invoiceDetailService.calculateEnergyCostsSubconceptsByValue(
-        this.configuration?.fixedPrice?.energyCosts,
-        periodConsumptionByDay,
-        $localize`:@@fixed-price-invoice-detail.consumed-energy-cost:Consumed energy cost`,
-        this.calculatedRange,
+      invoice.energyCosts.consumedEnergy.ranges.map(
+        (invoiceEntry, index, array) =>
+          this.invoiceDetailService.buildInvoiceConcept(
+            $localize`:@@fixed-price-invoice-detail.consumed-energy-cost:Consumed energy cost`,
+            invoiceEntry,
+            array,
+          ),
       ),
     );
 
     concept.subconcepts = concept.subconcepts?.concat(
-      this.invoiceDetailService.calculateEnergyCostsSubconceptsByValue(
-        this.configuration?.communityElectricityTax,
-        periodConsumptionByDay,
-        $localize`:@@fixed-price-invoice-detail.community-electricity-tax:Minimum community electricity tax`,
-        this.calculatedRange,
+      invoice.energyCosts.communityElectricityTax.ranges.map(
+        (invoiceEntry, index, array) =>
+          this.invoiceDetailService.buildInvoiceConcept(
+            $localize`:@@fixed-price-invoice-detail.community-electricity-tax:Minimum community electricity tax`,
+            invoiceEntry,
+            array,
+          ),
       ),
-    );
-
-    concept.value = this.invoiceDetailService.sumConceptsValues(
-      concept.subconcepts,
     );
 
     return concept;
